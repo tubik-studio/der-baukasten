@@ -7,7 +7,7 @@ export function useStoryblokSEO(story) {
 
     // Vars
     const locale = "uk_UA";
-    const siteName = "Project name";
+    const siteName = "Der Baukasten";
     const siteURL = "";
 
     const seo = {
@@ -26,8 +26,8 @@ export function useStoryblokSEO(story) {
             // Common information for search robots
             { name: "description", content: seo.description },
             { name: "keywords", content: seo.keywords },
-            { name: "author", content: "Oleg Savenok" },
-            { name: "designer", content: "Oleg Savenok" },
+            { name: "author", content: "Tubik Studio" },
+            { name: "designer", content: "Tubik Studio" },
 
             // Facebook
             { property: "og:locale", content: locale },
@@ -41,7 +41,7 @@ export function useStoryblokSEO(story) {
             // Twitter
             { name: "twitter:card", content: "summary" },
             { name: "twitter:site", content: siteName },
-            { name: "twitter:creator", content: "Oleg Savenok" },
+            { name: "twitter:creator", content: "Tubik Studio" },
             { name: "twitter:title", content: seo.twitter_title || seo.title },
             { name: "twitter:description", content: seo.twitter_description || seo.description },
             { name: "twitter:image", content: seo.twitter_image || seo.og_image },

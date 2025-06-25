@@ -1,11 +1,11 @@
 {
-    "name": "project-name",
+    "name": "der-baukasten",
     "private": true,
-    "author": "Oleg Savenok",
+    "author": "Tubik Studio",
     "scripts": {
         "build": "nuxt build",
-        "proxy": "local-ssl-proxy --source 3000 --target 9900 --cert localhost.pem --key localhost-key.pem",
-        "dev": "nuxt dev --port 9900",
+        "proxy": "local-ssl-proxy --source 3000 --target 6620 --cert localhost.pem --key localhost-key.pem",
+        "dev": "nuxt dev --port 6620",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "start": "nuxt preview",

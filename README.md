@@ -1,6 +1,4 @@
-# Nuxt 3 Starter Template
-
-> updated: 2025-06-19
+# Der Baukasten
 
 > Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
@@ -26,7 +24,7 @@ npm run prepare
 
 ## Development Server
 
-Start the development server on `http://localhost:9900`
+Start the development server on `http://localhost:6620`
 
 ```bash
 npm run dev

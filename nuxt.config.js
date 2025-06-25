@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     app: {
         head: {
             charset: "utf-8",
-            title: "Project name"
+            title: "Der Baukasten"
         }
     },
     modules: [
