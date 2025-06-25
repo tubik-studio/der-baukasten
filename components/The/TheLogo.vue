@@ -1,16 +1,5 @@
 <template>
-    <div class="the-logo">
-        <h1 class="heading-4">Logo</h1>
-        <svg class="the-logo__symbol" viewBox="0 0 52 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"></svg>
-
-        <svg
-            v-if="text"
-            class="the-logo__text"
-            viewBox="0 0 177 37"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-        ></svg>
-    </div>
+    <h1 class="the-logo">Der Baukasten</h1>
 </template>
 
 <script setup>
@@ -28,17 +17,10 @@
 
 <style lang="scss" scoped>
     .the-logo {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 15rem;
-
-        &__symbol {
-            //width: 21.08%;
-        }
-
-        &__text {
-            //width: 72.51%;
-        }
+        font-size: px-to-rem(24);
+        font-weight: 500;
+        letter-spacing: -0.08em;
+        line-height: 0.69;
+        //outline: 1px dashed white;
     }
 </style>

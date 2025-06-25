@@ -1,19 +1,16 @@
 <template>
-    <header class="the-header" :class="{ 'is-open': isMobileNavOpen }" ref="$refHeader">
-        <div class="the-header__content container">
+    <header class="the-header container" ref="header">
+        <div class="the-header__content">
+            <!-- Description -->
+            <p class="the-header__desc">A subtle concept for game design or interior mood</p>
+
             <!-- Logo-->
-            <a v-if="isHomePage" href="#hero"><TheLogo text /></a>
-            <nuxt-link v-else to="/"><TheLogo text /></nuxt-link>
+            <a class="the-header__logo" ref="logo" href="#hero">
+                <TheLogo v-fitty />
+            </a>
 
-            <!-- Navigation (.the-header__mobile-nav has styles just on mobile) -->
-            <div class="the-header__mobile-nav">
-                <div class="the-header__mobile-nav__inner">
-                    <TheNav :nav-list="content.nav" @click="closeMobileNav" />
-                </div>
-            </div>
-
-            <!-- Hamburger -->
-            <TheHamburger :is-open="isMobileNavOpen" @click="toggleMobileNav" />
+            <!-- Contacts button -->
+            <button class="the-header__button">Contact us</button>
         </div>
     </header>
 </template>
@@ -26,30 +23,35 @@
         }
     });
 
-    const isMobileNavOpen = ref(false);
+    // Refs
+    const $refHeader = useTemplateRef("header");
+    const $refLogo = useTemplateRef("logo");
 
-    const openMobileNav = () => {
-        isMobileNavOpen.value = true;
-    }
-
-    const closeMobileNav = () => {
-        isMobileNavOpen.value = false;
-    }
-
-    const toggleMobileNav = () => {
-        isMobileNavOpen.value = !isMobileNavOpen.value;
-    }
-
-    const route = useRoute();
-    const isHomePage = computed(() => {
-        return route.name === "index";
+    // Animation
+    useAnimation({
+        onEnter: ({ $gsap, $scrollTrigger, transitions }) => {
+            // const logoFlip = $gsap.to($refLogo.value, {
+            //     y: 0,
+            //     scale: 0.1,
+            //     duration: 1.5,
+            //     ease: "power2.inOut",
+            //     scrollTrigger: {
+            //         start: 0,
+            //         toggleActions: "play none none reverse",
+            //         onUpdate: () => {
+            //             console.log("update")
+            //         }
+            //     }
+            // });
+            //
+            // $scrollTrigger.create({
+            //     start: 100,
+            //     toggleActions: "play none none reverse",
+            // });
+            //
+            // transitions.push(logoFlip);
+        }
     });
-
-    onMounted(() => {
-        window.addEventListener("resize", () => {
-            closeMobileNav();
-        })
-    })
 </script>
 
 <style lang="scss" scoped>
@@ -61,93 +63,39 @@
         left: 0;
         top: 0;
         width: 100%;
+        padding-top: $pad;
+        padding-bottom: $pad;
+
+        @include respond-mobile(s) {
+            padding-top: $pad * 0.66;
+            padding-bottom: $pad * 0.66;
+        }
 
         &__content {
             position: relative;
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: $pad;
-            padding-bottom: $pad;
-
-            @include respond-mobile(s) {
-                padding-top: $pad * 0.66;
-                padding-bottom: $pad * 0.66;
-            }
+            width: 100%;
         }
 
-        .the-logo {
-            width: clamp(10rem, 5rem + 10vw, 15rem);
+        &__desc {
+            max-width: 250px;
+            font-size: px-to-rem(18);
+            font-weight: 500;
+            text-wrap: balance;
         }
 
-        .the-hamburger {
-            display: none;
+        &__logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: left top;
+            width: 100%;
+            transform: translateY(calc(100vh - 100% - #{$pad} - 5rem));
 
-            @include respond-mobile(m) {
-                display: flex;
-            }
-        }
-    }
-
-    // Mobile navigation
-    @include respond-mobile(m) {
-        .the-header {
-            &__mobile-nav {
-                position: absolute;
-                z-index: -1;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 0;
-                overflow: hidden;
-                background-color: var(--color-light);
-
-                &__inner {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100%;
-                    height: 100vh;
-                }
-
-                .the-nav {
-                    grid-auto-flow: row;
-                    text-align: center;
-
-                    :deep(.the-nav__item) {
-                        font-size: 2rem;
-                        font-weight: 500;
-                        color: var(--color-dark);
-                    }
-                }
-            }
-
-            .the-hamburger {
-                @include respond-mobile(m) {
-                    display: flex;
-                }
-            }
-        }
-
-        // Mobile navigation (Open state)
-        .the-header {
             .the-logo {
-                //
-                transition: color $tr-time $tr-atf;
-            }
-
-            &__mobile-nav {
-                //
-                transition: height $tr-time $tr-atf;
-            }
-        }
-
-        .the-header.is-open {
-            .the-logo {
-                color: var(--color-dark);
-            }
-
-            .the-header__mobile-nav {
-                height: 100vh;
+                margin-left: -0.05em;
             }
         }
     }

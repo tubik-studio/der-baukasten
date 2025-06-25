@@ -11,6 +11,7 @@
 <script setup>
     // Imports
     import { useMainStore } from "~/stores/mainStore";
+    import { Events, TRANSITION_ENTER, TRANSITION_ENTER_DONE } from "assets/js/Events";
 
     // Nuxt
     const nuxtApp = useNuxtApp();
@@ -35,6 +36,12 @@
 
     // Page transition
     const pageTransition = usePageTransition("page-transition");
+
+    // Enable appear transitions for the first page load
+    nuxtApp.hook("app:suspense:resolve", () => {
+        Events.dispatchEvent(TRANSITION_ENTER);
+        Events.dispatchEvent(TRANSITION_ENTER_DONE);
+    });
 </script>
 
 <style lang="scss">

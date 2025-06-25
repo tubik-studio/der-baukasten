@@ -3,10 +3,16 @@
         <StoryblokComponent v-for="section in story.content.sections" :blok="section" :key="section._uid" />
 
         <section class="section-test" id="test-1">
-            <h1>Test 1</h1>
+            <h1>Section 1</h1>
         </section>
-        <section class="section-test" id="test 2">
-            <h1>Test 2</h1>
+        <section class="section-test" id="test-2">
+            <h1>Section 2</h1>
+        </section>
+        <section class="section-test" id="test-3">
+            <h1>Section 3</h1>
+        </section>
+        <section class="section-test" id="test-4">
+            <h1>Section 4</h1>
         </section>
     </main>
 </template>
@@ -30,21 +36,23 @@
 <style lang="scss" scoped>
     @use "sass:math";
 
-    .page-home {
-        video {
-            width: 50%;
-        }
-    }
-
     .section-test {
         height: 100vh;
 
         &:nth-child(2) {
-            background-color: lightcoral;
+            background-color: var(--color-red);
         }
 
         &:nth-child(3) {
-            background-color: lightblue;
+            background-color: var(--color-blue);
+        }
+
+        &:nth-child(4) {
+            background-color: var(--color-yellow);
+        }
+
+        &:nth-child(5) {
+            background-color: var(--color-black);
         }
     }
 </style>

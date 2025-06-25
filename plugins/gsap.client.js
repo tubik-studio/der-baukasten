@@ -1,15 +1,12 @@
 // GSAP
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import DrawSVGPlugin from "assets/js/DrawSVGPlugin";
-import SplitText from "assets/js/SplitText";
-import ScrambleTextPlugin from "assets/js/ScrambleTextPlugin";
+import DrawSVGPlugin from "gsap/DrawSVGPlugin";
+import SplitText from "gsap/SplitText";
+import ScrambleTextPlugin from "gsap/ScrambleTextPlugin";
 
 // Register GSAP ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(DrawSVGPlugin);
-gsap.registerPlugin(SplitText);
-gsap.registerPlugin(ScrambleTextPlugin);
+gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, SplitText, ScrambleTextPlugin);
 
 // Vertical resizes on mobile won't trigger a ScrollTrigger.refresh()
 ScrollTrigger.config({
@@ -17,9 +14,9 @@ ScrollTrigger.config({
 });
 
 // Inject plugin into app
-export default defineNuxtPlugin(nuxtApp => {
-    nuxtApp.provide('gsap', gsap);
-    nuxtApp.provide('scrollTrigger', ScrollTrigger);
-    nuxtApp.provide('splitText', SplitText);
-    nuxtApp.provide('scrambleText', ScrambleTextPlugin);
+export default defineNuxtPlugin((nuxtApp) => {
+    nuxtApp.provide("gsap", gsap);
+    nuxtApp.provide("scrollTrigger", ScrollTrigger);
+    nuxtApp.provide("splitText", SplitText);
+    nuxtApp.provide("scrambleText", ScrambleTextPlugin);
 });
