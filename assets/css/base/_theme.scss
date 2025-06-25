@@ -2,14 +2,13 @@
 
 :root {
     --color-light: #{colors.$white};
-    --color-dark: #{colors.$gray};
-    --color-gray-light: #{colors.$gray-light};
+    --color-dark: #{colors.$black};
     --color-select: rgba(8, 171, 255, 0.33);
-    --color-primary: var(--color-light);
-    --color-contrast: var(--color-dark);
-    --color-brand-red: #{colors.$burning-tomato};
-    --color-brand-red-dark: #{colors.$corn-poppy-cherry};
-    --color-brand-red-light: #{colors.$barbarian-flesh};
+    --color-primary: var(--color-dark);
+    --color-contrast: var(--color-light);
+    --color-red: #{colors.$red};
+    --color-blue: #{colors.$blue};
+    --color-yellow: #{colors.$yellow};
 }
 
 .__body {

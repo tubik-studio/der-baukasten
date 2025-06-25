@@ -37,6 +37,8 @@ export function useStoryblokSEO(story) {
             { property: "og:site_name", content: siteName },
             { property: "og:description", content: seo.og_description || seo.description },
             { property: "og:image", content: seo.og_image },
+            { property: "og:image:width", content: "1200" },
+            { property: "og:image:height", content: "630" },
 
             // Twitter
             { name: "twitter:card", content: "summary" },

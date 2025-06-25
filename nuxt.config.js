@@ -3,7 +3,8 @@ export default defineNuxtConfig({
     app: {
         head: {
             charset: "utf-8",
-            title: "Der Baukasten"
+            title: "Der Baukasten",
+            link: [{ rel: "stylesheet", href: "https://use.typekit.net/vme5ecb.css" }]
         }
     },
     modules: [
