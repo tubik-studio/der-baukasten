@@ -1,0 +1,16 @@
+@use "../variables/index" as *;
+@use "sass:map";
+
+@mixin respond-desktop($name) {
+    @if map.has-key($breakpointsDesktop, $name) {
+        @media only screen and (min-width: #{map.get($breakpointsDesktop, $name)}px) {
+            @content;
+        }
+    } @else if(round($name) == $name) {
+        @media only screen and (min-width: #{$name}px) {
+            @content;
+        }
+    } @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.";
+    }
+}

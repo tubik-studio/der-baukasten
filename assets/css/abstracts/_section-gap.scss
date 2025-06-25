@@ -1,0 +1,19 @@
+@mixin section-gap($value, $property: "margin") {
+    #{$property}-top: #{$value}vh;
+
+    @include respond-mobile(xl) {
+        #{$property}-top: #{$value * 0.8}vh;
+    }
+
+    @include respond-mobile(xl) {
+        #{$property}-top: #{$value * 0.7}vh;
+    }
+
+    @include respond-mobile(xl) {
+        #{$property}-top: #{$value * 0.6}vh;
+    }
+
+    @include respond-mobile(s) {
+        #{$property}-top: #{$value * 0.5}vh;
+    }
+}

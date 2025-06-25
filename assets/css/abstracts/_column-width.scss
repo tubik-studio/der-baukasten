@@ -1,0 +1,8 @@
+@use "../variables/layout" as *;
+
+@function column-width($fraction, $of: 12, $gap-multiply: 1) {
+    @return calc(
+        #{$fraction} * (100% - #{$of - 1} * (#{$grid-gap} * #{$gap-multiply})) / #{$of} +
+            (#{$grid-gap} * #{$gap-multiply}) * #{$fraction - 1}
+    );
+}

@@ -1,0 +1,6 @@
+{
+	"*.js": "prettier --write",
+	"*.json": "prettier --write",
+	"*.vue": "prettier --write",
+	"*.scss": "prettier --write"
+}

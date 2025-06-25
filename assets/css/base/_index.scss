@@ -1,0 +1,18 @@
+@forward "./fonts";
+@forward "./normalize";
+@forward "./typography";
+@forward "./theme";
+@forward "./layout";
+@forward "./scroll";
+@forward "./plyr";
+@forward "./modifiers";
+
+a {
+    color: var(--color-contrast);
+    text-decoration: none;
+}
+
+#teleports {
+    position: relative;
+    z-index: 1005;
+}

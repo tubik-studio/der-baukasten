@@ -1,0 +1,134 @@
+/* Container */
+@use "sass:math";
+@use "../variables/index" as *;
+@use "../abstracts/index" as *;
+
+.container {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0 auto;
+
+    @include respond-desktop("s") {
+        width: 100%;
+        max-width: 2000px;
+    }
+
+    @include respond-all(
+        padding-left,
+        $pad-mobile-xs,
+        $pad-mobile-s,
+        $pad-mobile-m,
+        $pad-mobile-l,
+        $pad-mobile-xl,
+        $pad-desktop-s,
+        $pad-desktop-m,
+        $pad-desktop-l
+    );
+
+    @include respond-all(
+        padding-right,
+        $pad-mobile-xs,
+        $pad-mobile-s,
+        $pad-mobile-m,
+        $pad-mobile-l,
+        $pad-mobile-xl,
+        $pad-desktop-s,
+        $pad-desktop-m,
+        $pad-desktop-l
+    );
+
+    .content {
+        width: 100%;
+    }
+}
+
+/* Row */
+
+.row {
+    width: 100%;
+    display: flex;
+}
+
+/* Columns */
+
+$full-width: 100%;
+
+.--col {
+    &-1 {
+        width: math.div($full-width, 12);
+    }
+    &-2 {
+        width: math.div($full-width, 12) * 2;
+    }
+    &-3 {
+        width: math.div($full-width, 12) * 3;
+    }
+    &-4 {
+        width: math.div($full-width, 12) * 4;
+    }
+    &-5 {
+        width: math.div($full-width, 12) * 5;
+    }
+    &-6 {
+        width: math.div($full-width, 12) * 6;
+    }
+    &-7 {
+        width: math.div($full-width, 12) * 7;
+    }
+    &-8 {
+        width: math.div($full-width, 12) * 8;
+    }
+    &-9 {
+        width: math.div($full-width, 12) * 9;
+    }
+    &-10 {
+        width: math.div($full-width, 12) * 10;
+    }
+    &-11 {
+        width: math.div($full-width, 12) * 11;
+    }
+    &-12 {
+        width: $full-width;
+    }
+}
+
+.--off {
+    &-1 {
+        margin-left: column-offset(1);
+    }
+    &-2 {
+        margin-left: column-offset(2);
+    }
+    &-3 {
+        margin-left: column-offset(3);
+    }
+    &-4 {
+        margin-left: column-offset(4);
+    }
+    &-5 {
+        margin-left: column-offset(5);
+    }
+    &-6 {
+        margin-left: column-offset(6);
+    }
+    &-7 {
+        margin-left: column-offset(7);
+    }
+    &-8 {
+        margin-left: column-offset(8);
+    }
+    &-9 {
+        margin-left: column-offset(9);
+    }
+    &-10 {
+        margin-left: column-offset(10);
+    }
+    &-11 {
+        margin-left: column-offset(11);
+    }
+    &-12 {
+        margin-left: column-offset(12);
+    }
+}

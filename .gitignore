@@ -1,0 +1,14 @@
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+.env.local
+dist
+.DS_Store
+.fleet
+.idea
+localhost.pem
+localhost-key.pem

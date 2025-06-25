@@ -1,0 +1,16 @@
+@use "../variables/layout" as *;
+@use "../abstracts/respond-all" as *;
+
+@mixin respond-pad($value, $ratio: 1) {
+    @include respond-all(
+        $value,
+        $pad-mobile-xs * $ratio,
+        $pad-mobile-s * $ratio,
+        $pad-mobile-m * $ratio,
+        $pad-mobile-l * $ratio,
+        $pad-mobile-xl * $ratio,
+        $pad-desktop-s * $ratio,
+        $pad-desktop-m * $ratio,
+        $pad-desktop-l * $ratio
+    );
+}

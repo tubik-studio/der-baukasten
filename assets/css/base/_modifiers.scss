@@ -1,0 +1,13 @@
+@use "../abstracts/index" as *;
+
+.--hide-desktop {
+    @include respond-desktop(s) {
+        display: none !important;
+    }
+}
+
+.--hide-mobile {
+    @include respond-mobile(xl) {
+        display: none !important;
+    }
+}

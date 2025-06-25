@@ -1,0 +1,18 @@
+@use "../variables/colors";
+
+:root {
+    --color-light: #{colors.$white};
+    --color-dark: #{colors.$gray};
+    --color-gray-light: #{colors.$gray-light};
+    --color-select: rgba(8, 171, 255, 0.33);
+    --color-primary: var(--color-light);
+    --color-contrast: var(--color-dark);
+    --color-brand-red: #{colors.$burning-tomato};
+    --color-brand-red-dark: #{colors.$corn-poppy-cherry};
+    --color-brand-red-light: #{colors.$barbarian-flesh};
+}
+
+.__body {
+    color: var(--color-contrast);
+    background-color: var(--color-primary);
+}

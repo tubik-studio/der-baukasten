@@ -1,0 +1,106 @@
+@use "../variables/fonts" as *;
+@use "../abstracts/respond-all" as *;
+@use "../abstracts/px-to-rem" as *;
+
+/*
+400 - Regular
+500 - Medium
+600 - SemiBold
+700 - Bold
+*/
+
+html {
+    font-family: $Font;
+    font-weight: 400;
+    line-height: 1.25;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @include respond-all(
+        font-size,
+        $res-font-mobile-xs,
+        $res-font-mobile-s,
+        $res-font-mobile-m,
+        $res-font-mobile-l,
+        $res-font-mobile-xl,
+        $res-font-desktop-s,
+        $res-font-desktop-m,
+        $res-font-desktop-l
+    );
+}
+
+body {
+    font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $Font;
+    margin: 0;
+}
+
+// Titles
+.heading-ticker {
+    font-family: $Font;
+    font-size: clamp(4rem, 0.2rem + 19vw, 23rem);
+    font-weight: 500;
+}
+
+.heading-1 {
+    font-size: clamp(3rem, 2.429rem + 2.857vw, 5rem);
+    font-weight: 400;
+    line-height: 0.92;
+}
+
+.heading-2 {
+    font-size: clamp(2rem, 1.429rem + 2.857vw, 4rem);
+    font-weight: 400;
+    line-height: 0.92;
+}
+
+.heading-3 {
+    font-size: px-to-rem(36);
+    font-weight: 400;
+    line-height: 0.92;
+}
+
+.heading-4 {
+    font-size: px-to-rem(18);
+    font-weight: 400;
+    line-height: 1.16;
+}
+
+// Paragraphs
+.par-1 {
+    font-size: px-to-rem(18);
+    line-height: 1.4;
+}
+
+.par-1 {
+    font-size: px-to-rem(16);
+    line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+li,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+// Text modifiers
+.--upp {
+    text-transform: uppercase;
+}

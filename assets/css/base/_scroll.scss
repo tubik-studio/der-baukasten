@@ -1,0 +1,44 @@
+@use "../variables/colors";
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+html.is-scroll-disabled {
+    overflow: hidden;
+}
+
+html.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+// Scrollbar
+body::-webkit-scrollbar {
+    width: 0.75em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 50px rgba(#3f8b8d, 0.25);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: colors.$gray;
+    //outline: 1px solid slategrey;
+}
