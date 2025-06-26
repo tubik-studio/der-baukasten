@@ -1,11 +1,11 @@
 <template>
-    <header class="the-header container" ref="header">
+    <header class="the-header container" :class="{ 'is-collapsed': scrollY > 100 }">
         <div class="the-header__content">
             <!-- Description -->
             <p class="the-header__desc">A subtle concept for game design or interior mood</p>
 
             <!-- Logo-->
-            <a class="the-header__logo" ref="logo" href="#hero">
+            <a class="the-header__logo" href="#hero">
                 <TheLogo v-fitty />
             </a>
 
@@ -16,6 +16,10 @@
 </template>
 
 <script setup>
+    // Imports
+    import { useWindowScroll } from "@vueuse/core";
+
+    // Props
     const props = defineProps({
         content: {
             type: Object,
@@ -23,35 +27,8 @@
         }
     });
 
-    // Refs
-    const $refHeader = useTemplateRef("header");
-    const $refLogo = useTemplateRef("logo");
-
-    // Animation
-    useAnimation({
-        onEnter: ({ $gsap, $scrollTrigger, transitions }) => {
-            // const logoFlip = $gsap.to($refLogo.value, {
-            //     y: 0,
-            //     scale: 0.1,
-            //     duration: 1.5,
-            //     ease: "power2.inOut",
-            //     scrollTrigger: {
-            //         start: 0,
-            //         toggleActions: "play none none reverse",
-            //         onUpdate: () => {
-            //             console.log("update")
-            //         }
-            //     }
-            // });
-            //
-            // $scrollTrigger.create({
-            //     start: 100,
-            //     toggleActions: "play none none reverse",
-            // });
-            //
-            // transitions.push(logoFlip);
-        }
-    });
+    // Scroll
+    const { y: scrollY } = useWindowScroll();
 </script>
 
 <style lang="scss" scoped>
@@ -74,7 +51,7 @@
         &__content {
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             width: 100%;
         }
@@ -97,6 +74,24 @@
             .the-logo {
                 margin-left: -0.05em;
             }
+        }
+    }
+
+    // Collapsed state
+    .the-header {
+        &__desc,
+        &__logo {
+            transition: transform 1.5s $tr-atf;
+        }
+    }
+
+    .the-header.is-collapsed {
+        .the-header__desc {
+            transform: translateY(-20vh);
+        }
+
+        .the-header__logo {
+            transform: translateY(0) scale(0.08);
         }
     }
 </style>
