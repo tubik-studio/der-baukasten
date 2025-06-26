@@ -38,6 +38,7 @@
         position: fixed;
         z-index: 1000;
         left: 0;
+        right: 0;
         top: 0;
         width: 100%;
         padding-top: $pad;
@@ -64,6 +65,7 @@
         }
 
         &__logo {
+            pointer-events: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -91,6 +93,7 @@
         }
 
         .the-header__logo {
+            pointer-events: auto;
             transform: translateY(0) scale(0.08);
         }
     }

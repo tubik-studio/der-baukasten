@@ -10,11 +10,6 @@
     width: 100%;
     margin: 0 auto;
 
-    @include respond-desktop("s") {
-        width: 100%;
-        max-width: 2000px;
-    }
-
     @include respond-all(
         padding-left,
         $pad-mobile-xs,

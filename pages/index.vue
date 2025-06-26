@@ -14,6 +14,10 @@
         <section class="section-test" id="test-4">
             <h1>Section 4</h1>
         </section>
+
+        <Teleport to="body">
+            <CardsNav :list="story?.content?.cards" />
+        </Teleport>
     </main>
 </template>
 

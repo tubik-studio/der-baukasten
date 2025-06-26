@@ -2,14 +2,20 @@
     <div class="__app" ref="app">
         <TheHeader :content="globalStory.content" />
 
+        <Three />
+
         <NuxtLayout>
             <NuxtPage ref="page" class="__page" :transition="pageTransition" />
         </NuxtLayout>
+
+        <!-- Layout Grid -->
+        <LazyGrid v-if="isGridVisible" />
     </div>
 </template>
 
 <script setup>
     // Imports
+    import { onKeyStroke } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
     import { Events, TRANSITION_ENTER, TRANSITION_ENTER_DONE } from "assets/js/Events";
 
@@ -41,6 +47,13 @@
     nuxtApp.hook("app:suspense:resolve", () => {
         Events.dispatchEvent(TRANSITION_ENTER);
         Events.dispatchEvent(TRANSITION_ENTER_DONE);
+    });
+
+    // Grid
+    const isGridVisible = ref(false);
+
+    onKeyStroke(["G", "g"], (e) => {
+        isGridVisible.value = !isGridVisible.value;
     });
 </script>
 
