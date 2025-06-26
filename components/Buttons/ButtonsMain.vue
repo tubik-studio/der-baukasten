@@ -1,19 +1,19 @@
 <template>
     <component
-        class="button-main"
+        class="buttons-main"
         :class="`--type-${options.type}`"
         :is="tags[options.tag]"
         :link="options.link.url"
         :target="options.link.target"
     >
-        <div class="button-main__text">
-            <div class="button-main__text__mover">
-                <span>{{ options.text }}</span>
-                <span>{{ options.text }}</span>
-            </div>
+        <div class="buttons-main__text">
+            <span>{{ options.text }}</span>
         </div>
-        <div class="button-main__icon" v-if="options.icon">
-            <Icon :name="options.icon" size="1.25rem"></Icon>
+        <div class="buttons-main__icon" v-if="options.icon">
+            <div class="buttons-main__icon__mover">
+                <Icon :name="options.icon" size="1.25rem"></Icon>
+                <Icon :name="options.icon" size="1.25rem"></Icon>
+            </div>
         </div>
     </component>
 </template>
@@ -47,61 +47,80 @@
             })
         }
     });
-
-    const anchor = computed(() => (props.options.link.url.startsWith("#") ? props.options.link.url : ""));
 </script>
 
 <style lang="scss" scoped>
-    $icon-size: 2rem;
-    $text-size: 2.5rem;
+    $icon-size: 1.5rem;
 
-    .button-main {
+    .buttons-main {
+        cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         line-height: 1;
         white-space: nowrap;
-        color: var(--color-contrast);
-        background: none;
+        outline: none;
+        border: none;
 
         &__text {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.125rem;
-            text-transform: uppercase;
+            font-weight: 500;
             text-align: center;
             overflow: hidden;
-
-            &__mover {
-                position: relative;
-                display: flex;
-                align-items: center;
-                width: 100%;
-            }
 
             span {
                 display: inline-block;
                 width: 100%;
                 white-space: nowrap;
-
-                &:first-child {
-                    position: absolute;
-                    right: 100%;
-                    top: 0;
-                }
             }
         }
 
         &__icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+
+            &__mover {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 200%;
+                height: 100%;
+            }
+        }
+    }
+
+    // Type text
+    .buttons-main.--type-text {
+        color: var(--color-contrast);
+        background: none;
+        gap: px-to-rem(10);
+
+        .buttons-main__text {
+            font-size: px-to-rem(18);
+        }
+
+        .buttons-main__icon {
             height: $icon-size;
             width: $icon-size;
-            border-radius: 50%;
-            color: var(--color-primary);
-            background-color: var(--color-contrast);
+            color: currentColor;
+        }
+    }
+
+    .buttons-main__icon__mover {
+        transform: translateX(0);
+        transition: transform $tr-time $tr-atf;
+    }
+
+    .buttons-main:hover,
+    .buttons-main:focus-visible {
+        .buttons-main__icon__mover {
+            transform: translateX(50%);
         }
     }
 </style>

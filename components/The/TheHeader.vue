@@ -10,7 +10,7 @@
             </a>
 
             <!-- Contacts button -->
-            <button class="the-header__button">Contact us</button>
+            <ResolversButton :blok="content?.header_button" />
         </div>
     </header>
 </template>
