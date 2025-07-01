@@ -105,5 +105,17 @@
                 transform: translateY(0);
             }
         }
+
+        .cards-item.is-active:nth-child(2) {
+            .cards-item__scroll {
+                transform: translate(-14%, -100%);
+            }
+        }
+
+        .cards-item.is-active:nth-child(3) {
+            .cards-item__scroll {
+                transform: translate(-28%, -100%);
+            }
+        }
     }
 </style>
