@@ -2,7 +2,7 @@
     <main class="page-home" v-if="story">
         <StoryblokComponent v-for="section in story.content.sections" :blok="section" :key="section._uid" />
 
-        <Teleport to="#teleports" :disabled="isMobile">
+        <Teleport to="#custom-teleports" :disabled="isMobile">
             <CardsList :list="story?.content?.cards" />
         </Teleport>
 

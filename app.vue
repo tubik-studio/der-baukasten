@@ -8,6 +8,8 @@
             <NuxtPage ref="page" class="__page" :transition="pageTransition" />
         </NuxtLayout>
 
+        <div id="custom-teleports"></div>
+
         <!-- Layout Grid -->
         <LazyGrid v-if="isGridVisible" />
     </div>
@@ -69,5 +71,10 @@
     .__page,
     .__app {
         overflow: hidden !important;
+    }
+
+    #custom-teleports {
+        position: relative;
+        z-index: 1000;
     }
 </style>
