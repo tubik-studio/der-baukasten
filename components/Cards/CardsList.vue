@@ -1,7 +1,13 @@
 <template>
     <div class="cards-list container">
         <div class="cards-list__inner">
-            <CardsItem v-for="item in list" :phonetic="item?.phonetic" :color="item?.color?.color" />
+            <CardsItem
+                v-for="(item, id) in list"
+                :key="item._uid"
+                :id="id"
+                :phonetic="item?.phonetic"
+                :color="item?.color?.color"
+            />
         </div>
     </div>
 </template>
@@ -41,7 +47,6 @@
             position: fixed;
             right: 0;
             bottom: 0;
-            transform: translateY(-2rem);
 
             .cards-item {
                 position: absolute;
