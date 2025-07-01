@@ -32,8 +32,6 @@
 </script>
 
 <style lang="scss" scoped>
-    $pad: 1.875rem;
-
     .the-header {
         position: fixed;
         z-index: 999;
@@ -41,12 +39,12 @@
         right: 0;
         top: 0;
         width: 100%;
-        padding-top: $pad;
-        padding-bottom: $pad;
+        padding-top: $header-padding;
+        padding-bottom: $header-padding;
 
         @include respond-mobile(s) {
-            padding-top: $pad * 0.66;
-            padding-bottom: $pad * 0.66;
+            padding-top: $header-padding * 0.66;
+            padding-bottom: $header-padding * 0.66;
         }
 
         &__content {
@@ -71,7 +69,7 @@
             left: 0;
             transform-origin: left top;
             width: 100%;
-            transform: translateY(calc(100vh - 100% - #{$pad} - 5rem));
+            transform: translateY(calc(100vh - 100% - #{$header-padding} - 5rem));
 
             .the-logo {
                 margin-left: -0.05em;

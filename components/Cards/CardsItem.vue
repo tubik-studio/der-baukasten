@@ -52,7 +52,7 @@
         &__hover {
             width: 100%;
             height: 100%;
-            padding: 0 px-to-rem(24);
+            padding: $header-padding px-to-rem(24);
             background-color: v-bind(color);
         }
 
@@ -86,7 +86,7 @@
 
             .cards-item__phonetic {
                 opacity: 1;
-                transform: translateY(1rem);
+                transform: translateY(-$header-padding * 0.5);
             }
         }
 
@@ -102,7 +102,7 @@
 
             .cards-item__phonetic {
                 opacity: 1;
-                transform: translateY(1rem);
+                transform: translateY(0);
             }
         }
     }
