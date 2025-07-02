@@ -1,6 +1,6 @@
 <template>
-    <section ref="item" class="cards-item" :class="{ 'is-active': scrollY > Math.max(100, windowHeight * id) }">
-        <div class="cards-item__scroll">
+    <section ref="item" class="cards-item" :class="{ 'is-visible': isVisible }">
+        <div ref="scroll" class="cards-item__scroll">
             <div class="cards-item__hover">
                 <img class="cards-item__phonetic" :src="phonetic?.filename" :alt="phonetic?.alt" />
             </div>
@@ -9,11 +9,15 @@
 </template>
 
 <script setup>
-    import { useWindowScroll, useWindowSize } from "@vueuse/core";
+    import { useWindowSize } from "@vueuse/core";
 
     // Props
     const props = defineProps({
         id: {
+            type: Number,
+            required: true
+        },
+        length: {
             type: Number,
             required: true
         },
@@ -27,9 +31,47 @@
         }
     });
 
-    // Animation
-    const { y: scrollY } = useWindowScroll();
+    // Data
+    const isVisible = ref(false);
+
+    // Refs
+    const $refItem = useTemplateRef("item");
+    const $refScroll = useTemplateRef("scroll");
+
+    // Window size
     const { height: windowHeight } = useWindowSize();
+
+    // Animations
+    useAnimation({
+        onEnterDone: ({ $gsap, $scrollTrigger }) => {
+            const activeToggleTrigger = $scrollTrigger.create({
+                trigger: $refItem.value,
+                start: () => Math.max(100, windowHeight.value * (props.id + 1)),
+                // Show from the bottom stack
+                onEnter: () => {
+                    isVisible.value = true;
+
+                    $gsap.to($refScroll.value, {
+                        duration: 1.5,
+                        y: "-100vh",
+                        ease: "power3.out",
+                        overwrite: true
+                    });
+                },
+                // Hide to the bottom stack
+                onLeaveBack: () => {
+                    isVisible.value = false;
+
+                    $gsap.to($refScroll.value, {
+                        duration: 1.5,
+                        y: 0,
+                        ease: "power3.out",
+                        overwrite: true
+                    });
+                }
+            });
+        }
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -43,10 +85,6 @@
             display: block;
             width: 100%;
             height: 100%;
-
-            @include respond-desktop(s) {
-                transform: translateY(-2rem);
-            }
         }
 
         &__hover {
@@ -59,10 +97,6 @@
         &__phonetic {
             display: block;
             width: clamp(4.75rem, 3.393rem + 2.121vw, 5.938rem);
-
-            @include respond-desktop(s) {
-                opacity: 0;
-            }
         }
     }
 
@@ -75,46 +109,26 @@
                 opacity $tr-atf $tr-time;
         }
 
-        .cards-item:not(.is-active) {
+        .cards-item:not(.is-visible) {
             cursor: pointer;
-        }
 
-        .cards-item:not(.is-active):hover {
             .cards-item__hover {
-                transform: translateY(-3rem);
+                transform: translateY(-2rem);
             }
 
             .cards-item__phonetic {
-                opacity: 1;
-                transform: translateY(-$header-padding * 0.5);
-            }
-        }
-
-        // Active state
-        .cards-item__scroll {
-            transition: transform 1.5s $tr-atf;
-        }
-
-        .cards-item.is-active {
-            .cards-item__scroll {
-                transform: translateY(-100%);
+                opacity: 0;
             }
 
-            .cards-item__phonetic {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+            &:hover {
+                .cards-item__hover {
+                    transform: translateY(-5rem);
+                }
 
-        .cards-item.is-active:nth-child(2) {
-            .cards-item__scroll {
-                transform: translate(-14%, -100%);
-            }
-        }
-
-        .cards-item.is-active:nth-child(3) {
-            .cards-item__scroll {
-                transform: translate(-28%, -100%);
+                .cards-item__phonetic {
+                    opacity: 1;
+                    transform: translateY(-$header-padding * 0.5);
+                }
             }
         }
     }

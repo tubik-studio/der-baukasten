@@ -5,6 +5,7 @@
                 v-for="(item, id) in list"
                 :key="item._uid"
                 :id="id"
+                :length="list.length"
                 :phonetic="item?.phonetic"
                 :color="item?.color?.color"
             />
@@ -13,11 +14,32 @@
 </template>
 
 <script setup>
+    import { useWindowSize } from "@vueuse/core";
+
     // Props
     const props = defineProps({
         list: {
             type: Array,
-            default: () => []
+            required: true
+        }
+    });
+
+    // Window size
+    const { height: windowHeight } = useWindowSize();
+
+    // Animations
+    useAnimation({
+        onEnterDone: ({ $gsap, $scrollTrigger }) => {
+            // create a scroll trigger for the card list to be hidden at the end
+            $scrollTrigger.create({
+                start: () => windowHeight.value * props.list?.length,
+                onEnter: () => {
+                    console.log("Hide");
+                },
+                onLeaveBack: () => {
+                    console.log("Show");
+                }
+            });
         }
     });
 </script>
