@@ -72,9 +72,4 @@
     .__app {
         overflow: hidden !important;
     }
-
-    #custom-teleports {
-        position: relative;
-        z-index: 1000;
-    }
 </style>

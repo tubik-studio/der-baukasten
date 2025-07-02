@@ -29,16 +29,23 @@
 
     // Animations
     useAnimation({
-        onEnterDone: ({ $gsap, $scrollTrigger }) => {
-            // create a scroll trigger for the card list to be hidden at the end
-            $scrollTrigger.create({
-                start: () => windowHeight.value * props.list?.length,
-                onEnter: () => {
-                    console.log("Hide");
-                },
-                onLeaveBack: () => {
-                    console.log("Show");
-                }
+        onEnterDone: ({ $gsap, $scrollTrigger, transitions }) => {
+            const media = $gsap.matchMedia();
+
+            // Desktop animations
+            media.add("(min-width: 1025px)", () => {
+                // create a scroll trigger for the card list to be hidden at the end
+                const showHideTrigger = $scrollTrigger.create({
+                    start: () => windowHeight.value * props.list?.length,
+                    onEnter: () => {
+                        console.log("Hide");
+                    },
+                    onLeaveBack: () => {
+                        console.log("Show");
+                    }
+                });
+
+                transitions.push(showHideTrigger);
             });
         }
     });
@@ -59,6 +66,7 @@
 
             @include respond-desktop(s) {
                 width: column-width(6);
+                transform: translateX(-$grid-gap);
             }
         }
     }

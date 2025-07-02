@@ -5,7 +5,7 @@
             <p class="the-header__desc">A subtle concept for game design or interior mood</p>
 
             <!-- Logo-->
-            <a class="the-header__logo" href="#hero">
+            <a ref="logo" class="the-header__logo" href="#hero">
                 <TheLogo v-fitty />
             </a>
 
@@ -17,7 +17,7 @@
 
 <script setup>
     // Imports
-    import { useWindowScroll } from "@vueuse/core";
+    import { useWindowScroll, useWindowSize } from "@vueuse/core";
 
     // Props
     const props = defineProps({
@@ -27,8 +27,18 @@
         }
     });
 
-    // Scroll
+    // Refs
+    const $refLogo = useTemplateRef("logo");
+
+    // Window
     const { y: scrollY } = useWindowScroll();
+    const { width: windowWidth } = useWindowSize();
+
+    // Calculate logo scale based on window width
+    const logoScale = computed(() => {
+        if (!$refLogo?.value) return 1;
+        return 0.075 + Math.max(0, 1440 - windowWidth.value) / 5500;
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -93,8 +103,9 @@
         }
 
         .the-header__logo {
+            --scale: v-bind(logoScale);
             pointer-events: auto;
-            transform: translateY(0) scale(0.08);
+            transform: translateY(0) scale(var(--scale));
         }
     }
 </style>

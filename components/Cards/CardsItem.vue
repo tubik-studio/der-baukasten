@@ -2,7 +2,9 @@
     <section ref="item" class="cards-item" :class="{ 'is-visible': isVisible }">
         <div ref="scroll" class="cards-item__scroll">
             <div class="cards-item__hover">
-                <img class="cards-item__phonetic" :src="phonetic?.filename" :alt="phonetic?.alt" />
+                <div class="cards-item__content">
+                    <img class="cards-item__phonetic" :src="phonetic?.filename" :alt="phonetic?.alt" />
+                </div>
             </div>
         </div>
     </section>
@@ -43,32 +45,54 @@
 
     // Animations
     useAnimation({
-        onEnterDone: ({ $gsap, $scrollTrigger }) => {
-            const activeToggleTrigger = $scrollTrigger.create({
-                trigger: $refItem.value,
-                start: () => Math.max(100, windowHeight.value * (props.id + 1)),
-                // Show from the bottom stack
-                onEnter: () => {
-                    isVisible.value = true;
+        onEnterDone: ({ $gsap, $scrollTrigger, transitions }) => {
+            let showHideTrigger;
+            const media = $gsap.matchMedia();
 
-                    $gsap.to($refScroll.value, {
-                        duration: 1.5,
-                        y: "-100vh",
-                        ease: "power3.out",
-                        overwrite: true
-                    });
-                },
-                // Hide to the bottom stack
-                onLeaveBack: () => {
-                    isVisible.value = false;
+            // Desktop animations
+            media.add("(min-width: 1025px)", () => {
+                showHideTrigger = $scrollTrigger.create({
+                    trigger: $refItem.value,
+                    start: () => Math.max(100, windowHeight.value * (props.id + 1)),
+                    // Show from the bottom stack
+                    onEnter: () => {
+                        isVisible.value = true;
 
-                    $gsap.to($refScroll.value, {
-                        duration: 1.5,
-                        y: 0,
-                        ease: "power3.out",
-                        overwrite: true
-                    });
+                        $gsap.to($refScroll.value, {
+                            duration: 1.5,
+                            y: "-100vh",
+                            ease: "power3.out",
+                            overwrite: true
+                        });
+                    },
+                    // Hide to the bottom stack
+                    onLeaveBack: () => {
+                        isVisible.value = false;
+
+                        $gsap.to($refScroll.value, {
+                            duration: 1.5,
+                            y: 0,
+                            ease: "power3.out",
+                            overwrite: true
+                        });
+                    }
+                });
+
+                // Cleanup
+                transitions.push(showHideTrigger);
+            });
+
+            // Reset visibility on mobile
+            media.add("(max-width: 1024px)", () => {
+                isVisible.value = false;
+
+                if (showHideTrigger) {
+                    showHideTrigger.kill();
                 }
+
+                $gsap.set($refScroll.value, {
+                    y: 0
+                });
             });
         }
     });
@@ -88,10 +112,33 @@
         }
 
         &__hover {
+            position: relative;
+            box-sizing: border-box;
             width: 100%;
             height: 100%;
-            padding: $header-padding px-to-rem(24);
+            padding: $header-padding $grid-gap;
             background-color: v-bind(color);
+
+            @include respond-mobile(xl) {
+                @include respond-pad(padding-inline);
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 100%;
+                top: 0;
+                bottom: 0;
+                width: 50vh;
+                background-color: inherit;
+            }
+        }
+
+        &__content {
+            width: 100%;
+            height: 100%;
+            outline: 1px dashed red;
         }
 
         &__phonetic {
@@ -109,11 +156,15 @@
                 opacity $tr-atf $tr-time;
         }
 
+        .cards-item__hover {
+            box-sizing: content-box;
+        }
+
         .cards-item:not(.is-visible) {
             cursor: pointer;
 
             .cards-item__hover {
-                transform: translateY(-2rem);
+                transform: translateY(-$header-padding);
             }
 
             .cards-item__phonetic {
@@ -122,7 +173,7 @@
 
             &:hover {
                 .cards-item__hover {
-                    transform: translateY(-5rem);
+                    transform: translateY(-$header-padding * 2.5);
                 }
 
                 .cards-item__phonetic {
