@@ -10,9 +10,7 @@
 
         <CardsOffset v-if="!isMobile" :length="story?.content?.cards?.length" />
 
-        <section class="section-test" id="test-4">
-            <h1>End section</h1>
-        </section>
+        <section class="section-test" id="test-4"></section>
     </main>
 </template>
 
