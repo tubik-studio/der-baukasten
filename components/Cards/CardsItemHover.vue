@@ -1,17 +1,41 @@
 <template>
-    <div class="cards-item-hover">
+    <div class="cards-item-hover" @click="onClick">
         <slot></slot>
     </div>
 </template>
 
 <script setup>
+    import { useWindowSize } from "@vueuse/core";
+
     // Props
     const props = defineProps({
+        id: {
+            type: Number,
+            required: true
+        },
         color: {
             type: String,
             default: "#f0f0f0"
         }
     });
+
+    // Globals
+    const nuxtApp = useNuxtApp();
+
+    // Window size
+    const { height: windowHeight } = useWindowSize();
+
+    // Scroll on click
+    const onClick = () => {
+        // !!!
+        // 1.5 is the offset to scroll to the next section
+        // (arbitrary value needs to be adjusted after 3D scene is implemented)
+        nuxtApp.$lenis.scrollTo(windowHeight.value * (props.id + 1.5), {
+            duration: 1,
+            force: true,
+            lock: true
+        });
+    };
 </script>
 
 <style lang="scss">

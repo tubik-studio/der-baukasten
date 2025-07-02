@@ -1,7 +1,7 @@
 <template>
     <section class="cards-item" :class="{ 'is-visible': isVisible }">
         <CardsItemScroll :id="id" @update-is-visible-state="updateIsVisibleState">
-            <CardsItemHover :color="color">
+            <CardsItemHover :id="id" :color="color">
                 <CardsItemContent :phonetic="phonetic" />
             </CardsItemHover>
         </CardsItemScroll>
