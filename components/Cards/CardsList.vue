@@ -83,13 +83,18 @@
                 top: 0;
                 left: 0;
                 width: 100%;
+                transform: var(--transform-closed);
 
                 &:nth-child(2) {
-                    transform: translateX(calc(column-width(1, 6) + $grid-gap));
+                    --transform-open: translateX(0);
+                    --transform-closed: translateX(#{column-width(1, 6)});
+                    margin-left: $grid-gap;
                 }
 
                 &:nth-child(3) {
-                    transform: translateX(calc(column-width(2, 6) + $grid-gap));
+                    --transform-open: translateX(#{$grid-gap});
+                    --transform-closed: translateX(#{column-width(2, 6)});
+                    margin-left: $grid-gap;
                 }
             }
         }

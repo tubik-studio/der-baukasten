@@ -58,23 +58,57 @@
                     onEnter: () => {
                         isVisible.value = true;
 
-                        $gsap.to($refScroll.value, {
-                            duration: 1.5,
-                            y: "-100vh",
-                            ease: "power3.out",
-                            overwrite: true
+                        const tl = $gsap.timeline({
+                            defaults: {
+                                duration: 1.5,
+                                ease: "power3.out",
+                                overwrite: true
+                            }
                         });
+
+                        tl.to(
+                            $refScroll.value,
+                            {
+                                y: "-100vh"
+                            },
+                            0
+                        );
+
+                        tl.to(
+                            $refItem.value,
+                            {
+                                transform: "var(--transform-open)"
+                            },
+                            0
+                        );
                     },
                     // Hide to the bottom stack
                     onLeaveBack: () => {
                         isVisible.value = false;
 
-                        $gsap.to($refScroll.value, {
-                            duration: 1.5,
-                            y: 0,
-                            ease: "power3.out",
-                            overwrite: true
+                        const tl = $gsap.timeline({
+                            defaults: {
+                                duration: 1.5,
+                                ease: "power3.out",
+                                overwrite: true
+                            }
                         });
+
+                        tl.to(
+                            $refScroll.value,
+                            {
+                                y: 0
+                            },
+                            0
+                        );
+
+                        tl.to(
+                            $refItem.value,
+                            {
+                                transform: "var(--transform-closed)"
+                            },
+                            0
+                        );
                     }
                 });
 
