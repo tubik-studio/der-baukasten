@@ -138,12 +138,12 @@
         &__content {
             width: 100%;
             height: 100%;
-            outline: 1px dashed red;
         }
 
         &__phonetic {
             display: block;
             width: clamp(4.75rem, 3.393rem + 2.121vw, 5.938rem);
+            transform: translateY(-5%);
         }
     }
 
@@ -157,7 +157,7 @@
         }
 
         .cards-item__hover {
-            box-sizing: content-box;
+            width: calc(100% + $grid-gap * 2);
         }
 
         .cards-item:not(.is-visible) {

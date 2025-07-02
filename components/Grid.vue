@@ -15,6 +15,10 @@
                 <div class="grid__column"></div>
                 <div class="grid__column"></div>
             </div>
+
+            <div class="grid__line-top"></div>
+            <div class="grid__line-top-2"></div>
+            <div class="grid__line-bottom"></div>
         </div>
     </div>
 </template>
@@ -51,12 +55,26 @@
             border-right: 1px dashed rgba(blue, 0.5);
         }
 
-        &__line {
+        &__line-top,
+        &__line-top-2,
+        &__line-bottom {
             position: absolute;
-            top: 0;
-            left: 10%;
-            height: 100%;
-            width: 1px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            border-top: 1px dashed rgba(blue, 0.5);
+        }
+
+        &__line-top {
+            top: $header-padding;
+        }
+
+        &__line-top-2 {
+            top: calc($header-padding + 1.5rem);
+        }
+
+        &__line-bottom {
+            bottom: $header-padding;
         }
     }
 

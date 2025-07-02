@@ -105,7 +105,7 @@
         .the-header__logo {
             --scale: v-bind(logoScale);
             pointer-events: auto;
-            transform: translateY(0) scale(var(--scale));
+            transform: translateY(1%) scale(var(--scale));
         }
     }
 </style>
