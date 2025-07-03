@@ -30,6 +30,10 @@
         // !!!
         // 1.5 is the offset to scroll to the next section
         // (arbitrary value needs to be adjusted after 3D scene is implemented)
+        // !!!
+        // Scroll animation probably needs to be adjusted as well
+        // Maybe it's better to use gsap animation to instantly open the card
+        // while scrolling the 3D scene
         nuxtApp.$lenis.scrollTo(windowHeight.value * (props.id + 1.5), {
             duration: 1,
             force: true,

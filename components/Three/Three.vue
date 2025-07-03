@@ -1,22 +1,126 @@
 <template>
-    <div class="three">
-        <img src="/images/temp.png" alt="temp" />
+    <div class="canvas">
+        <canvas ref="$refCanvas"></canvas>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+    import { useMouse, useWindowSize } from "@vueuse/core";
+
+    // Store
+    import { useMainStore } from "~/stores/mainStore";
+
+    // Three.js
+    import { Clock } from "three";
+
+    // Global variables
+    import globals from "./modules/globals";
+
+    // Modules
+    import { resizeRendererToDisplaySize } from "./modules/responsiveness";
+    import initScene from "./modules/scene";
+    import initCamera from "./modules/camera";
+    import initLights from "./modules/lights";
+    import controls from "./modules/controls";
+    import loadModel from "./modules/model";
+    import zoom from "./modules/zoom";
+    import { initGui, initStats, startStats, endStats } from "./modules/gui";
+    import { updateAnimationMixer } from "./modules/animations.js";
+
+    // Store
+    const mainStore = useMainStore();
+
+    // Route
+    const route = useRoute();
+
+    // Refs
+    const $refCanvas = ref(null);
+
+    // Mouse position
+    const { x: mouseX, y: mouseY } = useMouse({ touch: false });
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
+
+    const mousePosition = computed(() => {
+        return {
+            x: (mouseX.value / windowWidth.value) * 2 - 1,
+            y: -(mouseY.value / windowHeight.value) * 2 + 1
+        };
+    });
+
+    function init(callback) {
+        // ===== 🖼️ CANVAS, RENDERER, & SCENE =====
+        initScene($refCanvas.value);
+
+        // ===== 🎥 CAMERA =====
+        initCamera();
+
+        // ===== LOAD THE MAIN MODEL =====
+        loadModel();
+
+        // ===== 💡 LIGHTS =====
+        initLights();
+
+        // ===== 🕹️ CONTROLS =====
+        controls();
+
+        // ===== 📈 STATS & CLOCK =====
+        globals.clock = new Clock();
+
+        // ===== 🐞 DEBUG GUI ====
+        initGui(route);
+
+        // ===== 📊 STATS ====
+        initStats(route);
+
+        // ===== 🧰 CALLBACK =====
+        callback();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // ===== 🐞 STATS ====
+        startStats();
+
+        // Resize the renderer if the canvas size has changed
+        if (resizeRendererToDisplaySize(globals.renderer)) {
+            // Update zoom
+            zoom();
+        }
+
+        // Get the passed time since the last frame
+        const delta = globals.clock.getDelta();
+
+        // Update the animation mixer from the blender model
+        updateAnimationMixer(mainStore.getThreeAnimationProgress, delta);
+
+        // Update main components
+        globals.cameraControls.update();
+        globals.renderer.render(globals.scene, globals.camera);
+
+        // ===== 🐞 STATS ====
+        endStats();
+    }
+
+    // Initialize the scene when the component is mounted
+    onMounted(() => {
+        init(() => {
+            animate();
+        });
+    });
+</script>
 
 <style lang="scss" scoped>
-    .three {
+    .canvas {
         position: fixed;
         height: 100vh;
         width: 100%;
         inset: 0;
 
-        img {
+        canvas {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            outline: none;
         }
     }
 </style>

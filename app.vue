@@ -2,7 +2,10 @@
     <div class="__app" ref="app">
         <TheHeader :content="globalStory.content" />
 
-        <Three />
+        <!-- Three.js -->
+        <client-only>
+            <LazyThree v-show="mainStore.isCanvasVisible" />
+        </client-only>
 
         <NuxtLayout>
             <NuxtPage ref="page" class="__page" :transition="pageTransition" />
