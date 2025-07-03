@@ -1,5 +1,6 @@
 import GUI from "lil-gui";
 import Stats from "stats.js";
+import { NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping } from "three";
 
 // Helpers
 import * as materials from "./materials";
@@ -91,6 +92,16 @@ export function initGui(route) {
 
     // Camera
     const cameraFolder = gui.addFolder("Camera");
+
+    // Renderer
+    const rendererFolder = gui.addFolder("Renderer");
+    rendererFolder.add(globals.renderer, "toneMapping", {
+        No: NoToneMapping,
+        Linear: LinearToneMapping,
+        Reinhard: ReinhardToneMapping,
+        Cineon: CineonToneMapping,
+        ACESFilmic: ACESFilmicToneMapping
+    });
 
     // persist GUI state in local storage on changes
     gui.onFinishChange(() => {

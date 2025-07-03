@@ -1,3 +1,5 @@
+import glsl from "vite-plugin-glsl";
+
 export default defineNuxtConfig({
     compatibilityDate: "2025-06-19",
     app: {
@@ -21,7 +23,7 @@ export default defineNuxtConfig({
     buildModules: ["@vueuse/nuxt"],
     css: ["@/assets/css/base/_index.scss"],
     vite: {
-        plugins: [],
+        plugins: [glsl()],
         css: {
             preprocessorOptions: {
                 scss: {
