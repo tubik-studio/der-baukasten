@@ -34,7 +34,7 @@
             media.add("(min-width: 1025px)", () => {
                 showHideTrigger = $scrollTrigger.create({
                     trigger: $refScroll.value.parentElement,
-                    start: () => windowHeight.value * 2 * (props.id + 1),
+                    start: () => windowHeight.value * 2 * (props.id + 0.66),
                     // Show from the bottom stack
                     onEnter: () => {
                         emit("updateIsVisibleState", true);
