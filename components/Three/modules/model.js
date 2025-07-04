@@ -16,7 +16,7 @@ export default function model() {
 
     // Load the new GLTF model
     nuxtApp.$gltfLoader.load(
-        "three/model.glb",
+        "three/model_bevels.glb",
         (gltf) => {
             globals.currentLoadedModel = gltf.scene;
 

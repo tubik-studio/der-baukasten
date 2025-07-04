@@ -51,14 +51,14 @@
         // ===== 🖼️ CANVAS, RENDERER, & SCENE =====
         initScene($refCanvas.value);
 
+        // ===== 💡 LIGHTS =====
+        initLights();
+
         // ===== 🎥 CAMERA =====
         initCamera();
 
         // ===== LOAD THE MAIN MODEL =====
         loadModel();
-
-        // ===== 💡 LIGHTS =====
-        initLights();
 
         // ===== 🕹️ CONTROLS =====
         controls();

@@ -1,15 +1,28 @@
 // Three
-import { PointLight, HemisphereLight, AmbientLight } from "three";
+import { DirectionalLight, HemisphereLight, AmbientLight } from "three";
 
 // Helpers
 import params from "./params";
 import globals from "./globals";
 
 export default function initLights() {
-    // Point light
-    globals.pointLight = new PointLight(params.pointLightColor, params.pointLightIntensity, 100);
-    globals.pointLight.decay = params.pointLightDecay;
-    globals.pointLight.position.set(-2, 2, 2);
+    // Light 1
+    const lightOne = new DirectionalLight(params.lightColor, params.lightIntensity);
+    lightOne.position.set(-4.4, 0.12, 0.48);
+    lightOne.castShadow = true;
+    lightOne.shadow.radius = 1;
+    lightOne.shadow.mapSize.set(2048, 2048);
+    lightOne.shadow.bias = -0.001;
+    lightOne.shadow.normalBias = 0.01;
+
+    // Light 2
+    const lightTwo = new DirectionalLight(params.lightColor, params.lightIntensity);
+    lightTwo.position.set(4.4, 0.12, 0.63);
+    lightTwo.castShadow = true;
+    lightTwo.shadow.radius = 1;
+    lightTwo.shadow.mapSize.set(2048, 2048);
+    lightTwo.shadow.bias = -0.001;
+    lightTwo.shadow.normalBias = 0.01;
 
     // Hemispheric light
     globals.hemiLight = new HemisphereLight(
@@ -22,8 +35,13 @@ export default function initLights() {
     // Ambient light
     globals.ambientLight = new AmbientLight(params.ambientLightColor, params.ambientLightIntensity);
 
+    // Store lights in globals
+    globals.lightOne = lightOne;
+    globals.lightTwo = lightTwo;
+
     // Add lights to the scene
-    globals.scene.add(globals.pointLight);
+    globals.scene.add(globals.lightOne);
+    globals.scene.add(globals.lightTwo);
     globals.scene.add(globals.hemiLight);
     globals.scene.add(globals.ambientLight);
 }

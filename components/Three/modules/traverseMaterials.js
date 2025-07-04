@@ -1,24 +1,12 @@
-import globals from "./globals";
-import traverseOptions from "./traverseOptions";
 import * as materials from "./materials";
+
+import { MeshStandardMaterial } from "three";
 
 export default function traverseMaterials(child) {
     if (child.type === "Mesh" && child.material) {
-        switch (child.material.name) {
-            case "Red":
-                child.material = materials.red;
-                break;
-            case "Blue":
-                child.material = materials.blue;
-                break;
-            case "Green":
-                child.material = materials.green;
-                break;
-            case "Yellow":
-                child.material = materials.yellow;
-                break;
-        }
-        //console.log(child.material);
-        //child.material = materials.red;
+        child.material = materials[child.material.name.toLowerCase()] || child.material;
+        //child.material = new MeshStandardMaterial({ color: 0xff0000 });
+        child.castShadow = true;
+        child.receiveShadow = true;
     }
 }
