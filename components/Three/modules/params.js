@@ -12,22 +12,25 @@ const params = {
     yellowColor1: "#FF8F2D",
     yellowColor2: "#FFBE40",
     // Material
-    metalness: 0,
-    roughness: 1,
-    bumpScale: 0.1,
+    metalness: 0.53,
+    roughness: 0.48,
+    bumpScale: 0.13,
     colorNoiseFreq: 1500.0,
-    bumpNoiseFreq: 1000.0,
-    // point light
-    lightColor: 0xf9f9f9,
-    lightIntensity: 2,
+    bumpNoiseFreq: 2000.0,
+    // light 1
+    lightOneColor: 0xf9f9f9,
+    lightOneIntensity: 8,
+    // light 2
+    lightTwoColor: 0xf9f9f9,
+    lightTwoIntensity: 6,
     // hemi light
     hemiLightColor: 0xf9f9f9,
     hemiLightGroundColor: 0x212121,
-    hemiLightIntensity: 1,
+    hemiLightIntensity: 0.7,
     postprocessing: true,
     // ambient light
     ambientLightColor: 0xf9f9f9,
-    ambientLightIntensity: 0.5
+    ambientLightIntensity: 0.6
 };
 
 export default params;

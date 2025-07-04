@@ -7,7 +7,7 @@ import globals from "./globals";
 
 export default function initLights() {
     // Light 1
-    const lightOne = new DirectionalLight(params.lightColor, params.lightIntensity);
+    const lightOne = new DirectionalLight(params.lightOneColor, params.lightOneIntensity);
     lightOne.position.set(-4.4, 0.12, 0.48);
     lightOne.castShadow = true;
     lightOne.shadow.radius = 1;
@@ -16,8 +16,8 @@ export default function initLights() {
     lightOne.shadow.normalBias = 0.01;
 
     // Light 2
-    const lightTwo = new DirectionalLight(params.lightColor, params.lightIntensity);
-    lightTwo.position.set(4.4, 0.12, 0.63);
+    const lightTwo = new DirectionalLight(params.lightTwoColor, params.lightTwoIntensity);
+    lightTwo.position.set(4.4, -0.5, 2.19);
     lightTwo.castShadow = true;
     lightTwo.shadow.radius = 1;
     lightTwo.shadow.mapSize.set(2048, 2048);
