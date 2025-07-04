@@ -176,24 +176,24 @@ export function initGui(route) {
     }
 
     // Hemi light
-    // if (globals.hemiLight) {
-    //     const hemiLightFolder = lightsFolder.addFolder("Hemi light");
-    //     hemiLightFolder.add(globals.hemiLight, "visible").name("hemi light");
-    //     hemiLightFolder.addColor(globals.hemiLight, "color");
-    //     hemiLightFolder.addColor(globals.hemiLight, "groundColor");
-    //     hemiLightFolder.add(globals.hemiLight, "intensity").min(0).max(2).step(0.1);
-    //     hemiLightFolder.add(globals.hemiLight.position, "x").min(-50).max(50).step(1).name("pos x");
-    //     hemiLightFolder.add(globals.hemiLight.position, "y").min(-50).max(50).step(1).name("pos y");
-    //     hemiLightFolder.add(globals.hemiLight.position, "z").min(-50).max(50).step(1).name("pos z");
-    // }
+    if (globals.hemiLight) {
+        const hemiLightFolder = lightsFolder.addFolder("Hemi light");
+        hemiLightFolder.add(globals.hemiLight, "visible").name("hemi light");
+        hemiLightFolder.addColor(globals.hemiLight, "color");
+        hemiLightFolder.addColor(globals.hemiLight, "groundColor");
+        hemiLightFolder.add(globals.hemiLight, "intensity").min(0).max(2).step(0.1);
+        hemiLightFolder.add(globals.hemiLight.position, "x").min(-50).max(50).step(1).name("pos x");
+        hemiLightFolder.add(globals.hemiLight.position, "y").min(-50).max(50).step(1).name("pos y");
+        hemiLightFolder.add(globals.hemiLight.position, "z").min(-50).max(50).step(1).name("pos z");
+    }
 
     // Ambient light
-    // if (globals.ambientLight) {
-    //     const ambientLightFolder = lightsFolder.addFolder("Ambient light");
-    //     ambientLightFolder.add(globals.ambientLight, "visible").name("ambient light");
-    //     ambientLightFolder.addColor(globals.ambientLight, "color");
-    //     ambientLightFolder.add(globals.ambientLight, "intensity").min(0).max(2).step(0.1);
-    // }
+    if (globals.ambientLight) {
+        const ambientLightFolder = lightsFolder.addFolder("Ambient light");
+        ambientLightFolder.add(globals.ambientLight, "visible").name("ambient light");
+        ambientLightFolder.addColor(globals.ambientLight, "color");
+        ambientLightFolder.add(globals.ambientLight, "intensity").min(0).max(2).step(0.1);
+    }
 
     // Camera
     // const cameraFolder = gui.addFolder("Camera");
