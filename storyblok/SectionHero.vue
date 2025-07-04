@@ -24,10 +24,11 @@
             const st = $scrollTrigger.create({
                 trigger: $refSection.value,
                 start: "top top",
-                end: () => "+=100%",
+                end: () => "+=200%",
                 scrub: true,
                 onUpdate: ({ progress }) => {
                     mainStore.updateThreeAnimationFrame(200 * progress);
+                    mainStore.updateCanvasPositionX(-0.051 - 0.2 * progress);
                 }
             });
 

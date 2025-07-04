@@ -14,6 +14,6 @@
 
 <style lang="scss" scoped>
     .cards-offset {
-        height: calc((v-bind(length) + 1) * 100vh);
+        height: calc((v-bind(length) + 1) * 200vh);
     }
 </style>

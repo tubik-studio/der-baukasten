@@ -34,8 +34,8 @@
         // Scroll animation probably needs to be adjusted as well
         // Maybe it's better to use gsap animation to instantly open the card
         // while scrolling the 3D scene
-        nuxtApp.$lenis.scrollTo(windowHeight.value * (props.id + 1.5), {
-            duration: 1,
+        nuxtApp.$lenis.scrollTo(windowHeight.value * 2 * (props.id + 1.5), {
+            duration: 3,
             force: true,
             lock: true
         });

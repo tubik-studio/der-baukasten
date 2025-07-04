@@ -2,7 +2,8 @@ export const useMainStore = defineStore("main", {
     state: () => ({
         loadingProgress: 0,
         threeAnimationFrame: 0,
-        isCanvasVisible: true
+        isCanvasVisible: true,
+        canvasPositionX: -0.051
     }),
     getters: {
         getThreeAnimationProgress: (state) => state.threeAnimationFrame / 1200
@@ -17,6 +18,9 @@ export const useMainStore = defineStore("main", {
         },
         updateCanvasVisibility(isVisible) {
             this.isCanvasVisible = isVisible;
+        },
+        updateCanvasPositionX(positionX) {
+            this.canvasPositionX = positionX;
         }
     }
 });

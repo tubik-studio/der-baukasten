@@ -30,13 +30,11 @@
             let showHideTrigger;
             const media = $gsap.matchMedia();
 
-            console.dir($refScroll.value);
-
             // Desktop animations
             media.add("(min-width: 1025px)", () => {
                 showHideTrigger = $scrollTrigger.create({
                     trigger: $refScroll.value.parentElement,
-                    start: () => Math.max(100, windowHeight.value * (props.id + 1)),
+                    start: () => windowHeight.value * 2 * (props.id + 1),
                     // Show from the bottom stack
                     onEnter: () => {
                         emit("updateIsVisibleState", true);

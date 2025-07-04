@@ -6,8 +6,6 @@
 
 <script setup>
     import { useMouse, useWindowSize } from "@vueuse/core";
-
-    // Store
     import { useMainStore } from "~/stores/mainStore";
 
     // Three.js
@@ -27,8 +25,9 @@
     import { initGui, initStats, startStats, endStats } from "./modules/gui";
     import { updateAnimationMixer } from "./modules/animations.js";
 
-    // Store
+    // Globals
     const mainStore = useMainStore();
+    const nuxtApp = useNuxtApp();
 
     // Route
     const route = useRoute();
@@ -108,6 +107,21 @@
             animate();
         });
     });
+
+    // Scene x position setter
+    let xSetter;
+
+    onMounted(() => {
+        xSetter = nuxtApp.$gsap.quickSetter($refCanvas.value, "x", "px");
+        xSetter(mainStore.canvasPositionX * windowWidth.value);
+    });
+
+    watch(
+        () => mainStore.canvasPositionX,
+        (x) => {
+            xSetter(x * windowWidth.value);
+        }
+    );
 </script>
 
 <style lang="scss" scoped>
