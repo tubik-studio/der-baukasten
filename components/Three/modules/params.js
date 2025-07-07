@@ -3,7 +3,7 @@ const params = {
     redColor1: "#DA350C",
     redColor2: "#FF582E",
     // Green
-    greenColor1: "#00805B",
+    greenColor1: "#007a58",
     greenColor2: "#00956A",
     // Blue
     blueColor1: "#003AFF",
@@ -12,8 +12,8 @@ const params = {
     yellowColor1: "#FF8F2D",
     yellowColor2: "#FFBE40",
     // Material
-    metalness: 0.53,
-    roughness: 0.48,
+    metalness: 0,
+    roughness: 0.5,
     bumpScale: 0.13,
     colorNoiseFreq: 1500.0,
     bumpNoiseFreq: 2000.0,
