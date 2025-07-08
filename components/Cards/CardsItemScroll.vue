@@ -15,6 +15,9 @@
         }
     });
 
+    // Globals
+    const nuxtApp = useNuxtApp();
+
     // Emits
     const emit = defineEmits(["updateIsVisibleState"]);
 
@@ -34,9 +37,10 @@
             media.add("(min-width: 1025px)", () => {
                 showHideTrigger = $scrollTrigger.create({
                     trigger: $refScroll.value.parentElement,
-                    start: () => windowHeight.value * 2 * (props.id + 0.66),
+                    start: () => windowHeight.value * 2 * (props.id + 0.5),
                     // Show from the bottom stack
                     onEnter: () => {
+                        console.log(nuxtApp.$lenis.scroll / windowHeight.value);
                         emit("updateIsVisibleState", true);
 
                         const tl = $gsap.timeline({
@@ -99,7 +103,7 @@
 
             // Reset visibility on mobile
             media.add("(max-width: 1024px)", () => {
-                isVisible.value = false;
+                emit("updateIsVisibleState", true);
 
                 if (showHideTrigger) {
                     showHideTrigger.kill();
