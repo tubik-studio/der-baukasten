@@ -18,7 +18,12 @@
             <div class="cards-item-content__separator"></div>
 
             <!-- Button -->
-            <button class="cards-item-content__button">Download</button>
+            <button class="cards-item-content__button">
+                <span>
+                    <Icon name="ri:download-line" />
+                    Download 3D Model
+                </span>
+            </button>
         </div>
     </div>
 </template>
@@ -32,7 +37,11 @@
         },
         title: String,
         subtitle: String,
-        desc: Object
+        desc: Object,
+        color: {
+            type: String,
+            default: "#f0f0f0"
+        }
     });
 </script>
 
@@ -48,6 +57,7 @@
         &__inner {
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
             gap: 3.5vh;
             max-width: 480px;
         }
@@ -87,6 +97,39 @@
             width: 100%;
             height: 0;
             border-top: 1px solid currentColor;
+        }
+
+        &__button {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            font-size: px-to-rem(20);
+            font-weight: 500;
+            color: currentColor;
+            border: 1px solid currentColor;
+            border-radius: px-to-rem(12);
+            cursor: pointer;
+            background: none;
+            transition: background-color $tr-time;
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: color $tr-time;
+            }
+
+            &:hover {
+                span {
+                    color: v-bind(color);
+                }
+                background-color: currentColor;
+            }
+
+            svg {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
         }
     }
 </style>

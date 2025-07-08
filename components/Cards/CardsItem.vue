@@ -2,7 +2,13 @@
     <section class="cards-item" :class="{ 'is-visible': isVisible, light: theme === 'light', dark: theme === 'dark' }">
         <CardsItemScroll :id="id" @update-is-visible-state="updateIsVisibleState">
             <CardsItemHover :id="id" :color="color">
-                <CardsItemContent :phonetic="phonetic" :title="title" :subtitle="subtitle" :desc="desc" />
+                <CardsItemContent
+                    :color="color"
+                    :phonetic="phonetic"
+                    :title="title"
+                    :subtitle="subtitle"
+                    :desc="desc"
+                />
             </CardsItemHover>
         </CardsItemScroll>
     </section>
