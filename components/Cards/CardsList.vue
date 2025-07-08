@@ -7,7 +7,11 @@
                 :id="id"
                 :length="list.length"
                 :phonetic="item?.phonetic"
+                :title="item?.title"
+                :subtitle="item?.subtitle"
+                :desc="item?.desc"
                 :color="item?.color?.color"
+                :theme="item?.theme"
             />
         </div>
     </div>

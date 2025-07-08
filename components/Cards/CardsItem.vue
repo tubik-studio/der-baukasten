@@ -1,8 +1,8 @@
 <template>
-    <section class="cards-item" :class="{ 'is-visible': isVisible }">
+    <section class="cards-item" :class="{ 'is-visible': isVisible, light: theme === 'light', dark: theme === 'dark' }">
         <CardsItemScroll :id="id" @update-is-visible-state="updateIsVisibleState">
             <CardsItemHover :id="id" :color="color">
-                <CardsItemContent :phonetic="phonetic" />
+                <CardsItemContent :phonetic="phonetic" :title="title" :subtitle="subtitle" :desc="desc" />
             </CardsItemHover>
         </CardsItemScroll>
     </section>
@@ -23,9 +23,25 @@
             type: Object,
             required: true
         },
+        title: {
+            type: String,
+            default: ""
+        },
+        subtitle: {
+            type: String,
+            default: ""
+        },
+        desc: {
+            type: Object,
+            default: () => ({})
+        },
         color: {
             type: String,
             default: "#f0f0f0"
+        },
+        theme: {
+            type: String,
+            default: "light"
         }
     });
 
@@ -43,5 +59,13 @@
         justify-content: flex-end;
         height: 100vh;
         width: 100%;
+
+        &.light {
+            color: var(--color-light);
+        }
+
+        &.dark {
+            color: var(--color-dark);
+        }
     }
 </style>
