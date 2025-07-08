@@ -1,7 +1,7 @@
 <template>
     <section class="cards-item" :class="{ 'is-visible': isVisible, light: theme === 'light', dark: theme === 'dark' }">
         <CardsItemScroll :id="id" @update-is-visible-state="updateIsVisibleState">
-            <CardsItemHover :id="id" :color="color">
+            <CardsItemHover :id="id" :active-card-id="activeCardId" :color="color">
                 <CardsItemContent
                     :color="color"
                     :phonetic="phonetic"
@@ -18,6 +18,10 @@
     // Props
     const props = defineProps({
         id: {
+            type: Number,
+            required: true
+        },
+        activeCardId: {
             type: Number,
             required: true
         },
@@ -54,8 +58,12 @@
     // Visibility state
     const isVisible = ref(false);
 
+    // Emits
+    const emit = defineEmits(["updateActiveItemId"]);
+
     const updateIsVisibleState = (state) => {
-        isVisible.value = state;
+        isVisible.value = state[0];
+        emit("updateActiveItemId", state[1]);
     };
 </script>
 

@@ -40,8 +40,7 @@
                     start: () => windowHeight.value * 2 * (props.id + 0.5),
                     // Show from the bottom stack
                     onEnter: () => {
-                        console.log(nuxtApp.$lenis.scroll / windowHeight.value);
-                        emit("updateIsVisibleState", true);
+                        emit("updateIsVisibleState", [true, props.id]);
 
                         const tl = $gsap.timeline({
                             defaults: {
@@ -69,7 +68,7 @@
                     },
                     // Hide to the bottom stack
                     onLeaveBack: () => {
-                        emit("updateIsVisibleState", false);
+                        emit("updateIsVisibleState", [false, props.id - 1]);
 
                         const tl = $gsap.timeline({
                             defaults: {
@@ -103,7 +102,7 @@
 
             // Reset visibility on mobile
             media.add("(max-width: 1024px)", () => {
-                emit("updateIsVisibleState", true);
+                emit("updateIsVisibleState", [true, props.id]);
 
                 if (showHideTrigger) {
                     showHideTrigger.kill();

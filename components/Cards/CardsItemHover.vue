@@ -1,5 +1,5 @@
 <template>
-    <div class="cards-item-hover" @click="onClick">
+    <div class="cards-item-hover" @click="onClick" @mouseover="sideHover" @mouseleave="sideHide">
         <slot></slot>
     </div>
 </template>
@@ -10,6 +10,10 @@
     // Props
     const props = defineProps({
         id: {
+            type: Number,
+            required: true
+        },
+        activeCardId: {
             type: Number,
             required: true
         },
@@ -37,6 +41,40 @@
         nuxtApp.$lenis.scrollTo(windowHeight.value * 2 * (props.id + 1), {
             duration: 4,
             force: true
+        });
+    };
+
+    // Side hover effect
+    const visibleCards = ref([]);
+    const updateVisibleCards = () => {
+        const cardsItems = document.querySelectorAll(".cards-item");
+        visibleCards.value = Array.from(cardsItems).slice(0, props.id + 1);
+    };
+
+    watch(
+        () => props.activeCardId,
+        (id, prevId) => {
+            if (id < prevId) {
+                visibleCards.value.forEach((card) => {
+                    card.classList.remove("is-side-hovered");
+                });
+            }
+        }
+    );
+
+    const sideHover = (e) => {
+        if (props.id < props.activeCardId) {
+            updateVisibleCards();
+
+            visibleCards.value.forEach((card) => {
+                card.classList.add("is-side-hovered");
+            });
+        }
+    };
+
+    const sideHide = (e) => {
+        visibleCards.value.forEach((card) => {
+            card.classList.remove("is-side-hovered");
         });
     };
 </script>
@@ -79,6 +117,11 @@
             width: calc(100% + $grid-gap * 2);
         }
 
+        .cards-item.is-side-hovered .cards-item-hover {
+            transform: translateX(-7rem);
+        }
+
+        // Bottom hover effect (when card is not visible)
         .cards-item:not(.is-visible) {
             cursor: pointer;
 

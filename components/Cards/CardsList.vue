@@ -12,6 +12,8 @@
                 :desc="item?.desc"
                 :color="item?.color?.color"
                 :theme="item?.theme"
+                :active-card-id="activeCardId"
+                @update-active-item-id="updateActiveItemId"
             />
         </div>
     </div>
@@ -27,6 +29,13 @@
             required: true
         }
     });
+
+    // Current active card
+    const activeCardId = ref(0);
+
+    const updateActiveItemId = (id) => {
+        activeCardId.value = id;
+    };
 
     // Window size
     const { height: windowHeight } = useWindowSize();
