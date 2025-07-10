@@ -3,7 +3,8 @@ export const useMainStore = defineStore("main", {
         loadingProgress: 0,
         threeAnimationFrame: 0,
         isCanvasVisible: true,
-        canvasPositionX: -0.051
+        canvasPositionX: -0.051,
+        isHeaderDark: false
     }),
     getters: {
         getThreeAnimationProgress: (state) => state.threeAnimationFrame / 1200
@@ -21,6 +22,9 @@ export const useMainStore = defineStore("main", {
         },
         updateCanvasPositionX(positionX) {
             this.canvasPositionX = positionX;
+        },
+        toggleHeaderDarkMode(isDark) {
+            this.isHeaderDark = isDark;
         }
     }
 });

@@ -1,5 +1,5 @@
 <template>
-    <header class="the-header container" :class="{ 'is-collapsed': scrollY > 100 }">
+    <header class="the-header container" :class="{ 'is-collapsed': scrollY > 100, 'is-dark': mainStore.isHeaderDark }">
         <div class="the-header__content">
             <!-- Description -->
             <p class="the-header__desc">A subtle concept for game design or interior mood</p>
@@ -18,6 +18,7 @@
 <script setup>
     // Imports
     import { useWindowScroll, useWindowSize } from "@vueuse/core";
+    import { useMainStore } from "~/stores/mainStore";
 
     // Props
     const props = defineProps({
@@ -26,6 +27,9 @@
             required: true
         }
     });
+
+    // Globals
+    const mainStore = useMainStore();
 
     // Refs
     const $refLogo = useTemplateRef("logo");
@@ -106,6 +110,20 @@
             --scale: v-bind(logoScale);
             pointer-events: auto;
             transform: translateY(1%) scale(var(--scale));
+        }
+    }
+
+    // Dark header state
+    .the-header {
+        :deep(.buttons-main) {
+            transition: color 0.1s;
+        }
+    }
+
+    .the-header.is-dark {
+        :deep(.buttons-main) {
+            color: var(--color-dark);
+            transition: color 0.1s 0.75s;
         }
     }
 </style>

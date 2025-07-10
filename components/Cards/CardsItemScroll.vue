@@ -6,6 +6,7 @@
 
 <script setup>
     import { useWindowSize } from "@vueuse/core";
+    import { useMainStore } from "~/stores/mainStore";
 
     // Props
     const props = defineProps({
@@ -17,6 +18,7 @@
 
     // Globals
     const nuxtApp = useNuxtApp();
+    const mainStore = useMainStore();
 
     // Emits
     const emit = defineEmits(["updateIsVisibleState"]);
@@ -41,6 +43,7 @@
                     // Show from the bottom stack
                     onEnter: () => {
                         emit("updateIsVisibleState", [true, props.id]);
+                        mainStore.toggleHeaderDarkMode(props.id === 2);
 
                         const tl = $gsap.timeline({
                             defaults: {
@@ -69,6 +72,7 @@
                     // Hide to the bottom stack
                     onLeaveBack: () => {
                         emit("updateIsVisibleState", [false, props.id - 1]);
+                        mainStore.toggleHeaderDarkMode(false);
 
                         const tl = $gsap.timeline({
                             defaults: {
