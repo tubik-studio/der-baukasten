@@ -4,7 +4,8 @@ export const useMainStore = defineStore("main", {
         threeAnimationFrame: 0,
         isCanvasVisible: true,
         canvasPositionX: -0.051,
-        isHeaderDark: false
+        isHeaderDark: false,
+        threeMagneticRepulsionStrength: 0.15
     }),
     getters: {
         getThreeAnimationProgress: (state) => state.threeAnimationFrame / 1200
@@ -25,6 +26,9 @@ export const useMainStore = defineStore("main", {
         },
         toggleHeaderDarkMode(isDark) {
             this.isHeaderDark = isDark;
+        },
+        updateMagneticRepulsionStrength(strength) {
+            this.threeMagneticRepulsionStrength = strength;
         }
     }
 });

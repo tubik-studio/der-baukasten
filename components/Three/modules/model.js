@@ -2,6 +2,7 @@
 import globals from "./globals";
 import { populateAnimationMixer } from "./animationMixer";
 import traverseMaterials from "./traverseMaterials";
+import { initMagneticRepulsion } from "./magneticRepulsion";
 import zoom from "./zoom";
 
 // Nuxt App
@@ -19,6 +20,9 @@ export default function model() {
         "three/model_bevels.glb",
         (gltf) => {
             globals.currentLoadedModel = gltf.scene;
+
+            // Initialize magnetic repulsion effect
+            initMagneticRepulsion();
 
             // Traverse the loaded model and apply materials
             globals.currentLoadedModel.traverse((child) => {

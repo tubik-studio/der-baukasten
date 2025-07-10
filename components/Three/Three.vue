@@ -24,6 +24,7 @@
     import zoom from "./modules/zoom";
     import { initGui, initStats, startStats, endStats } from "./modules/gui";
     import { updateAnimationMixer } from "./modules/animations.js";
+    import { updateMagneticRepulsion } from "./modules/magneticRepulsion";
 
     // Globals
     const mainStore = useMainStore();
@@ -92,6 +93,9 @@
 
         // Update the animation mixer from the blender model
         updateAnimationMixer(mainStore.getThreeAnimationProgress, delta);
+
+        // Update magnetic repulsion
+        updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
 
         // Update main components
         globals.cameraControls.update();

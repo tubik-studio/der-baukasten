@@ -18,5 +18,7 @@ export default {
     targetPlace: null,
     cameraPlace: null,
     animationMixers: [],
-    animationsArray: []
+    animationsArray: [],
+    // Magnetic repulsion effect
+    magneticRepulsionEnabled: true
 };
