@@ -81,8 +81,7 @@
                             ease: "power3.out",
                             stagger: 0.1
                         });
-                    },
-                    markers: true
+                    }
                 });
 
                 transitions.push(showHideTrigger);

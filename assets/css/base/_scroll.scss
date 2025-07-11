@@ -31,7 +31,8 @@ html.lenis {
 
 // Scrollbar
 body::-webkit-scrollbar {
-    width: 20px;
+    //width: 20px;
+    width: 0;
 }
 
 body::-webkit-scrollbar-track {
