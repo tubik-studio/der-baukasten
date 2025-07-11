@@ -59,7 +59,7 @@
                     start: () => "bottom 300%",
                     end: () => "bottom bottom",
                     onUpdate: ({ progress }) => {
-                        mainStore.updateThreeAnimationFrame(800 + 200 * progress);
+                        mainStore.updateThreeAnimationFrame(900 + 200 * progress);
                         mainStore.updateCanvasPositionX(-0.251 + 0.251 * progress);
                     },
                     onEnter: () => {

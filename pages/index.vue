@@ -62,15 +62,15 @@
     useAnimation({
         onEnter: ({ transitions }) => {
             // 1. Hero -> Rooster
-            const heroToRooster = createScrubber(0, "+=175%", 0, 200, (progress) => {
-                mainStore.updateCanvasPositionX(-0.051 - 0.2 * progress);
+            const heroToRooster = createScrubber(0, "+=175%", 0, 300, (progress) => {
+                mainStore.updateCanvasPositionX(-0.051 - 0.2 * Math.min(progress * 1.5, 1));
             });
 
             // 2. Rooster -> Stork
-            const roosterToStork = createScrubber(1, "+=200%", 200, 500);
+            const roosterToStork = createScrubber(1, "+=200%", 300, 600);
 
             // 3. Stork -> Horse
-            const storkToHorse = createScrubber(2, "+=200%", 500, 740);
+            const storkToHorse = createScrubber(2, "+=200%", 600, 900);
 
             // Cleanup
             transitions.push(heroToRooster, roosterToStork, storkToHorse);
