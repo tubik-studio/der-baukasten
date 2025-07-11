@@ -111,7 +111,10 @@
                         clearProps: "all"
                     },
                     0
-                );
+                )
+                .set(".the-preloader", {
+                    pointerEvents: "none"
+                });
         };
 
         // Hide preloader when loading is done

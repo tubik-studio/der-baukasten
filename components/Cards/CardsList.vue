@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+    import { useMainStore } from "~/stores/mainStore";
     import { useWindowSize } from "@vueuse/core";
 
     // Props
@@ -29,6 +30,10 @@
             required: true
         }
     });
+
+    // Globals
+    const nuxtApp = useNuxtApp();
+    const mainStore = useMainStore();
 
     // Current active card
     const activeCardId = ref(0);
@@ -44,18 +49,40 @@
     useAnimation({
         onEnterDone: ({ $gsap, $scrollTrigger, transitions }) => {
             const media = $gsap.matchMedia();
+            let animation = null;
 
             // Desktop animations
             media.add("(min-width: 1025px)", () => {
                 // create a scroll trigger for the card list to be hidden at the end
                 const showHideTrigger = $scrollTrigger.create({
-                    start: () => windowHeight.value * props.list?.length,
+                    trigger: "body",
+                    start: () => "bottom 300%",
+                    end: () => "bottom bottom",
+                    onUpdate: ({ progress }) => {
+                        mainStore.updateThreeAnimationFrame(800 + 200 * progress);
+                        mainStore.updateCanvasPositionX(-0.251 + 0.251 * progress);
+                    },
                     onEnter: () => {
-                        console.log("Hide");
+                        animation?.kill();
+
+                        animation = $gsap.to(".cards-item", {
+                            xPercent: 120,
+                            duration: 0.85,
+                            ease: "power2.out",
+                            stagger: -0.05
+                        });
                     },
                     onLeaveBack: () => {
-                        console.log("Show");
-                    }
+                        animation?.kill();
+
+                        animation = $gsap.to(".cards-item", {
+                            xPercent: 0,
+                            duration: 0.85,
+                            ease: "power3.out",
+                            stagger: 0.1
+                        });
+                    },
+                    markers: true
                 });
 
                 transitions.push(showHideTrigger);
