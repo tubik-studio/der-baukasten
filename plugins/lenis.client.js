@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
 
     // Stop Lenis initially
-    // lenis.stop();
+    lenis.stop();
 
     // Integrate with GSAP's ticker for smooth animations
     nuxtApp.$gsap.ticker.add((time) => {

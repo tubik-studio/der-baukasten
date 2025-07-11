@@ -15,6 +15,9 @@
 
         <!-- Layout Grid -->
         <LazyGrid v-if="isGridVisible" />
+
+        <!-- The Preloader -->
+        <ThePreloader />
     </div>
 </template>
 
@@ -22,7 +25,7 @@
     // Imports
     import { onKeyStroke } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
-    import { Events, TRANSITION_ENTER, TRANSITION_ENTER_DONE } from "assets/js/Events";
+    import { Events, TRANSITION_ENTER, TRANSITION_ENTER_DONE, PRELOADER_DONE } from "assets/js/Events";
 
     // Nuxt
     const nuxtApp = useNuxtApp();
@@ -48,18 +51,27 @@
     // Page transition
     const pageTransition = usePageTransition("page-transition");
 
-    // Enable appear transitions for the first page load
-    nuxtApp.hook("app:suspense:resolve", () => {
-        Events.dispatchEvent(TRANSITION_ENTER);
-        Events.dispatchEvent(TRANSITION_ENTER_DONE);
-    });
-
-    // Grid
+    // ===== 🏷️ GRID =====
     const isGridVisible = ref(false);
 
     onKeyStroke(["G", "g"], (e) => {
         isGridVisible.value = !isGridVisible.value;
     });
+
+    // ===== 🖼️ LOADING PROGRESS =====
+    if (nuxtApp.$loadingManager) {
+        nuxtApp.$loadingManager.onProgress = (url, loaded, total) => {
+            mainStore.updateLoadingProgress(loaded / 12);
+        };
+
+        nuxtApp.$loadingManager.onLoad = () => {
+            // Make sure to set final progress to 1 when loading is complete
+            mainStore.updateLoadingProgress(1);
+
+            // Dispatch event to indicate that the loading is complete
+            Events.dispatchEvent(PRELOADER_DONE);
+        };
+    }
 </script>
 
 <style lang="scss">
