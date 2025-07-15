@@ -96,9 +96,9 @@
                     0
                 )
                 .from(
-                    ".the-header",
+                    [".the-header__desc", ".the-header .buttons-main"],
                     {
-                        y: -40,
+                        y: "-2rem",
                         opacity: 0,
                         clearProps: "all"
                     },
@@ -111,6 +111,25 @@
                         clearProps: "all"
                     },
                     0
+                )
+                .from(
+                    ".the-header__logo .char",
+                    {
+                        yPercent: 100,
+                        duration: 1.5,
+                        stagger: 0.025
+                    },
+                    0
+                )
+                .from(
+                    ".cards-item",
+                    {
+                        y: "3rem",
+                        duration: 1.75,
+                        stagger: 0.25,
+                        clearProps: "all"
+                    },
+                    0.3
                 )
                 .set(".the-preloader", {
                     pointerEvents: "none"

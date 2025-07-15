@@ -1,5 +1,5 @@
 <template>
-    <h1 class="the-logo">Der Baukasten</h1>
+    <h1 class="the-logo" ref="logo">Der Baukasten</h1>
 </template>
 
 <script setup>
@@ -12,6 +12,21 @@
             type: Boolean,
             default: true
         }
+    });
+
+    // Globals
+    const nuxtApp = useNuxtApp();
+
+    // Refs
+    const $refLogo = useTemplateRef("logo");
+
+    // Split text into characters
+    onMounted(() => {
+        nuxtApp.$splitText.create($refLogo.value, {
+            type: "lines, chars",
+            charsClass: "char",
+            mask: "lines"
+        });
     });
 </script>
 
