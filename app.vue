@@ -9,6 +9,7 @@
 
         <NuxtLayout>
             <NuxtPage ref="page" class="__page" :transition="pageTransition" />
+            <TheFooter :content="globalStory.content" />
         </NuxtLayout>
 
         <div id="custom-teleports"></div>

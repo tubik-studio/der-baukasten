@@ -9,10 +9,6 @@
         </ClientOnly>
 
         <CardsOffset v-if="!isMobile" :length="story?.content?.cards?.length" />
-
-        <section class="end-section">
-            <RichText class="copyright" :text="story?.content?.copyright"></RichText>
-        </section>
     </main>
 </template>
 
@@ -78,15 +74,4 @@
     });
 </script>
 
-<style lang="scss" scoped>
-    @use "sass:math";
-
-    .end-section {
-        height: 100vh;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        text-align: center;
-        @include respond-pad(padding-block-end);
-    }
-</style>
+<style lang="scss" scoped></style>

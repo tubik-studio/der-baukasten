@@ -113,8 +113,9 @@
             width: 100%;
             transform: translateY(calc(100vh - 100% - #{$header-padding} - 5rem));
 
-            .the-logo {
+            :deep(.the-logo .line-mask) {
                 margin-left: -0.05em;
+                padding-right: 0.05em;
             }
         }
     }

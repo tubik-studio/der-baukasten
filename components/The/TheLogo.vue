@@ -24,6 +24,7 @@
     onMounted(() => {
         nuxtApp.$splitText.create($refLogo.value, {
             type: "lines, chars",
+            linesClass: "line",
             charsClass: "char",
             mask: "lines"
         });
