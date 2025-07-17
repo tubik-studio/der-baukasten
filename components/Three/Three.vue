@@ -119,16 +119,26 @@
 
     // Scene x position setter
     let xSetter;
+    let ySetter;
 
     onMounted(() => {
         xSetter = nuxtApp.$gsap.quickSetter($refCanvas.value, "x", "px");
         xSetter(mainStore.canvasPositionX * windowWidth.value);
+        ySetter = nuxtApp.$gsap.quickSetter($refCanvas.value, "y", "px");
+        ySetter(mainStore.canvasPositionY * windowHeight.value);
     });
 
     watch(
         () => mainStore.canvasPositionX,
         (x) => {
             xSetter(x * windowWidth.value);
+        }
+    );
+
+    watch(
+        () => mainStore.canvasPositionY,
+        (y) => {
+            ySetter(y * windowHeight.value);
         }
     );
 </script>

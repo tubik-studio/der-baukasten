@@ -45,6 +45,13 @@
     // Window size
     const { height: windowHeight } = useWindowSize();
 
+    //
+    const lastAnimationProgress = ref(0);
+
+    function easing(x) {
+        return Math.sqrt(1 - Math.pow(x - 1, 2));
+    }
+
     // Animations
     useAnimation({
         onEnterDone: ({ $gsap, $scrollTrigger, transitions }) => {
@@ -59,8 +66,9 @@
                     start: () => "bottom 300%",
                     end: () => "bottom bottom",
                     onUpdate: ({ progress }) => {
-                        mainStore.updateThreeAnimationFrame(900 + 200 * progress);
-                        mainStore.updateCanvasPositionX(-0.251 + 0.251 * progress);
+                        mainStore.updateThreeAnimationFrame(900 + 200 * easing(progress));
+                        mainStore.updateCanvasPositionX(-0.251 + 0.251 * easing(progress));
+                        mainStore.updateCanvasPositionY(0 - 0.15 * easing(progress));
                     },
                     onEnter: () => {
                         animation?.kill();
@@ -71,6 +79,17 @@
                             ease: "power2.out",
                             stagger: -0.05
                         });
+
+                        // $gsap.to(lastAnimationProgress, {
+                        //     value: 1,
+                        //     duration: 1,
+                        //     ease: "power2.out",
+                        //     onUpdate: () => {
+                        //         mainStore.updateThreeAnimationFrame(900 + 200 * lastAnimationProgress.value);
+                        //         mainStore.updateCanvasPositionX(-0.251 + 0.251 * lastAnimationProgress.value);
+                        //         mainStore.updateCanvasPositionY(0 - 0.15 * lastAnimationProgress.value);
+                        //     }
+                        // });
                     },
                     onLeaveBack: () => {
                         animation?.kill();
@@ -81,6 +100,17 @@
                             ease: "power3.out",
                             stagger: 0.1
                         });
+
+                        // $gsap.to(lastAnimationProgress, {
+                        //     value: 0,
+                        //     duration: 1,
+                        //     ease: "power2.out",
+                        //     onUpdate: () => {
+                        //         mainStore.updateThreeAnimationFrame(900 + 200 * lastAnimationProgress.value);
+                        //         mainStore.updateCanvasPositionX(-0.251 + 0.251 * lastAnimationProgress.value);
+                        //         mainStore.updateCanvasPositionY(0 - 0.15 * lastAnimationProgress.value);
+                        //     }
+                        // });
                     }
                 });
 

@@ -4,6 +4,7 @@ export const useMainStore = defineStore("main", {
         threeAnimationFrame: 0,
         isCanvasVisible: true,
         canvasPositionX: -0.051,
+        canvasPositionY: 0,
         isHeaderDark: false,
         threeMagneticRepulsionStrength: 0.15
     }),
@@ -23,6 +24,9 @@ export const useMainStore = defineStore("main", {
         },
         updateCanvasPositionX(positionX) {
             this.canvasPositionX = positionX;
+        },
+        updateCanvasPositionY(positionY) {
+            this.canvasPositionY = positionY;
         },
         toggleHeaderDarkMode(isDark) {
             this.isHeaderDark = isDark;
