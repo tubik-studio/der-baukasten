@@ -1,5 +1,5 @@
 // Three.js
-import { OrthographicCamera } from "three";
+import { OrthographicCamera, Group } from "three";
 
 // Helpers
 import globals from "~/components/Three/modules/globals";
@@ -21,6 +21,12 @@ export default function camera() {
         100 // far
     );
 
+    // Create a group for the camera to allow mouse rotation independently
+    globals.cameraGroup = new Group();
+    globals.cameraGroup.add(globals.camera);
+    globals.scene.add(globals.cameraGroup);
+
+    // Set camera properties
     globals.camera.position.set(10, 10, 50);
     globals.camera.zoom = 1;
     globals.camera.userData.frustumHeight = frustumHeight; // Store for use in resize handling

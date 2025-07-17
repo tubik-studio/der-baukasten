@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-    import { useMouse, useWindowSize } from "@vueuse/core";
+    import { useWindowSize } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
 
     // Three.js
@@ -22,6 +22,7 @@
     import controls from "./modules/controls";
     import loadModel from "./modules/model";
     import zoom from "./modules/zoom";
+    import { setCursorListener } from "./modules/cursorPosition";
     import { initGui, initStats, startStats, endStats } from "./modules/gui";
     import { updateAnimationMixer } from "./modules/animations.js";
     import { updateMagneticRepulsion } from "./modules/magneticRepulsion";
@@ -36,16 +37,8 @@
     // Refs
     const $refCanvas = ref(null);
 
-    // Mouse position
-    const { x: mouseX, y: mouseY } = useMouse({ touch: false });
+    // Window size
     const { width: windowWidth, height: windowHeight } = useWindowSize();
-
-    const mousePosition = computed(() => {
-        return {
-            x: (mouseX.value / windowWidth.value) * 2 - 1,
-            y: -(mouseY.value / windowHeight.value) * 2 + 1
-        };
-    });
 
     function init(callback) {
         // ===== 🖼️ CANVAS, RENDERER, & SCENE =====
@@ -68,6 +61,9 @@
 
         // ===== 🐞 DEBUG GUI ====
         initGui(route);
+
+        // ===== 🖱️ CURSOR POSITION =====
+        setCursorListener();
 
         // ===== 📊 STATS ====
         initStats(route);
@@ -96,6 +92,15 @@
 
         // Update magnetic repulsion
         updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
+
+        // Camera rotation
+        const mult = 0.01;
+
+        if (globals.cameraGroup && globals.cursorPosition) {
+            // globals.cameraGroup.rotation.x = globals.cursorPosition.y * mult;
+            // globals.cameraGroup.rotation.y = globals.cursorPosition.x * mult;
+            // globals.cameraGroup.rotation.z = globals.cursorPosition.y * mult;
+        }
 
         // Update main components
         globals.cameraControls.update();

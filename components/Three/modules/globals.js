@@ -10,6 +10,7 @@ export default {
     lightTwo: null,
     hemiLight: null,
     camera: null,
+    cameraGroup: null,
     cameraControls: null,
     clock: null,
     // Model
@@ -19,6 +20,8 @@ export default {
     cameraPlace: null,
     animationMixers: [],
     animationsArray: [],
+    // Cursor
+    cursorPosition: null,
     // Magnetic repulsion effect
     magneticRepulsionEnabled: true
 };
