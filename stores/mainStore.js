@@ -3,10 +3,11 @@ export const useMainStore = defineStore("main", {
         loadingProgress: 0,
         threeAnimationFrame: 0,
         isCanvasVisible: true,
-        canvasPositionX: -0.051,
+        canvasPositionX: 0,
         canvasPositionY: 0,
         isHeaderDark: false,
-        threeMagneticRepulsionStrength: 0.15
+        threeRotationStrength: 0.02,
+        threeMagneticRepulsionStrength: 0.1
     }),
     getters: {
         getThreeAnimationProgress: (state) => state.threeAnimationFrame / 1200
@@ -33,6 +34,9 @@ export const useMainStore = defineStore("main", {
         },
         updateMagneticRepulsionStrength(strength) {
             this.threeMagneticRepulsionStrength = strength;
+        },
+        updateRotationStrength(strength) {
+            this.threeRotationStrength = strength;
         }
     }
 });

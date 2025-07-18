@@ -9,23 +9,6 @@
     const props = defineProps({
         blok: Object
     });
-
-    // Globals
-    const mainStore = useMainStore();
-
-    // Magnetic repulsion strength
-    useAnimation({
-        onEnter: ({ $scrollTrigger }) => {
-            const st = $scrollTrigger.create({
-                trigger: "body",
-                start: 0,
-                end: "+=100%",
-                onUpdate: ({ progress }) => {
-                    mainStore.updateMagneticRepulsionStrength(0.15 * (1 - progress));
-                }
-            });
-        }
-    });
 </script>
 
 <style lang="scss" scoped>

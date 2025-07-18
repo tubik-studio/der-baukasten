@@ -26,6 +26,7 @@
     import { initGui, initStats, startStats, endStats } from "./modules/gui";
     import { updateAnimationMixer } from "./modules/animations.js";
     import { updateMagneticRepulsion } from "./modules/magneticRepulsion";
+    import { updateRotationEffect } from "./modules/rotationEffect";
 
     // Globals
     const mainStore = useMainStore();
@@ -92,6 +93,9 @@
 
         // Update magnetic repulsion
         updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
+
+        // Update rotation effect
+        updateRotationEffect(mainStore.threeRotationStrength);
 
         // Update main components
         globals.cameraControls.update();

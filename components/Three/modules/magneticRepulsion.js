@@ -4,7 +4,7 @@ import globals from "./globals";
 // Parameters
 const params = {
     // How far the mouse's influence reaches
-    radius: 0.2,
+    radius: 1,
     // A factor for how quickly the objects move. Higher is faster.
     lerpFactor: 0.03
 };

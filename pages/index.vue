@@ -59,7 +59,10 @@
         onEnter: ({ transitions }) => {
             // 1. Hero -> Rooster
             const heroToRooster = createScrubber(0, "+=175%", 0, 300, (progress) => {
-                mainStore.updateCanvasPositionX(-0.051 - 0.2 * Math.min(progress * 1.5, 1));
+                const speedUpProgress = Math.min(progress * 1.5, 1);
+                mainStore.updateCanvasPositionX(-0.25 * speedUpProgress);
+                mainStore.updateRotationStrength(0.02 + 0.2 * progress);
+                mainStore.updateMagneticRepulsionStrength(0.1 * (1 - speedUpProgress));
             });
 
             // 2. Rooster -> Stork
