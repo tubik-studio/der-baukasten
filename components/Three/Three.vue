@@ -19,7 +19,7 @@
     import initScene from "./modules/scene";
     import initCamera from "./modules/camera";
     import initLights from "./modules/lights";
-    import controls from "./modules/controls";
+    import initControls from "./modules/controls";
     import loadModel from "./modules/model";
     import zoom from "./modules/zoom";
     import { setCursorListener } from "./modules/cursorPosition";
@@ -54,7 +54,7 @@
         loadModel();
 
         // ===== 🕹️ CONTROLS =====
-        controls();
+        initControls();
 
         // ===== 📈 STATS & CLOCK =====
         globals.clock = new Clock();
@@ -92,15 +92,6 @@
 
         // Update magnetic repulsion
         updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
-
-        // Camera rotation
-        const mult = 0.01;
-
-        if (globals.cameraGroup && globals.cursorPosition) {
-            // globals.cameraGroup.rotation.x = globals.cursorPosition.y * mult;
-            // globals.cameraGroup.rotation.y = globals.cursorPosition.x * mult;
-            // globals.cameraGroup.rotation.z = globals.cursorPosition.y * mult;
-        }
 
         // Update main components
         globals.cameraControls.update();
