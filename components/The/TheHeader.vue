@@ -89,6 +89,21 @@
             padding-bottom: $header-padding * 0.66;
         }
 
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: -1px;
+            right: -1px;
+            height: 1rem;
+            @include respond-pad(padding);
+            background-color: var(--color-primary);
+            opacity: 0;
+            //
+            transition: opacity $tr-time;
+        }
+
         &__content {
             position: relative;
             display: flex;
@@ -123,6 +138,12 @@
     // Collapsed state
     .the-header.is-collapsed {
         z-index: 1001;
+
+        @include respond-mobile(xl) {
+            &:after {
+                opacity: 1;
+            }
+        }
 
         .the-header__logo {
             pointer-events: auto;
