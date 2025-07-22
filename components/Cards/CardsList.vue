@@ -65,11 +65,6 @@
                     trigger: "body",
                     start: () => "bottom 300%",
                     end: () => "bottom bottom",
-                    onUpdate: ({ progress }) => {
-                        mainStore.updateThreeAnimationFrame(900 + 200 * easing(progress));
-                        mainStore.updateCanvasPositionX(-0.251 + 0.251 * easing(progress));
-                        mainStore.updateCanvasPositionY(0 - 0.15 * easing(progress));
-                    },
                     onEnter: () => {
                         animation?.kill();
 
@@ -79,17 +74,6 @@
                             ease: "power2.out",
                             stagger: -0.05
                         });
-
-                        // $gsap.to(lastAnimationProgress, {
-                        //     value: 1,
-                        //     duration: 1,
-                        //     ease: "power2.out",
-                        //     onUpdate: () => {
-                        //         mainStore.updateThreeAnimationFrame(900 + 200 * lastAnimationProgress.value);
-                        //         mainStore.updateCanvasPositionX(-0.251 + 0.251 * lastAnimationProgress.value);
-                        //         mainStore.updateCanvasPositionY(0 - 0.15 * lastAnimationProgress.value);
-                        //     }
-                        // });
                     },
                     onLeaveBack: () => {
                         animation?.kill();
@@ -100,17 +84,6 @@
                             ease: "power3.out",
                             stagger: 0.1
                         });
-
-                        // $gsap.to(lastAnimationProgress, {
-                        //     value: 0,
-                        //     duration: 1,
-                        //     ease: "power2.out",
-                        //     onUpdate: () => {
-                        //         mainStore.updateThreeAnimationFrame(900 + 200 * lastAnimationProgress.value);
-                        //         mainStore.updateCanvasPositionX(-0.251 + 0.251 * lastAnimationProgress.value);
-                        //         mainStore.updateCanvasPositionY(0 - 0.15 * lastAnimationProgress.value);
-                        //     }
-                        // });
                     }
                 });
 
@@ -165,6 +138,17 @@
                     --transform-closed: translateX(#{column-width(2, 6)});
                     margin-left: $grid-gap;
                 }
+            }
+        }
+    }
+
+    // Mobile
+    @include respond-mobile(xl) {
+        .cards-list {
+            margin-top: 25vh;
+
+            .cards-item {
+                margin-top: 100vh;
             }
         }
     }

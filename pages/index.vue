@@ -60,9 +60,10 @@
             // 1. Hero -> Rooster
             const heroToRooster = createScrubber(0, "+=175%", 0, 300, (progress) => {
                 const speedUpProgress = Math.min(progress * 1.5, 1);
-                mainStore.updateCanvasPositionX(-0.25 * speedUpProgress);
                 mainStore.updateRotationStrength(0.02 + 0.2 * progress);
                 mainStore.updateMagneticRepulsionStrength(0.1 * (1 - speedUpProgress));
+
+                mainStore.updateCanvasPositionX(window.innerWidth > 1024 ? -0.25 * speedUpProgress : 0);
             });
 
             // 2. Rooster -> Stork
