@@ -21,8 +21,8 @@ export function updateRotationEffect(strength, cursorPosition, deviceOrientation
         const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) || 0;
 
         if (leftToRight !== 0 || frontToBack !== 0) {
-            targetX.value = (frontToBack / 90) * strength * 2;
-            targetY.value = (leftToRight / 90) * strength * 2;
+            targetX.value = (frontToBack / 90) * strength * -3;
+            targetY.value = (leftToRight / 90) * strength * 3;
         } else {
             targetX.value = cursorPosition.y * strength;
             targetY.value = cursorPosition.x * strength;
