@@ -22,7 +22,7 @@ export function updateRotationEffect(strength, cursorPosition, deviceOrientation
 
         if (leftToRight !== 0 || frontToBack !== 0) {
             targetX.value = (frontToBack / 90) * strength * -3;
-            targetY.value = (leftToRight / 90) * strength * 3;
+            targetY.value = (leftToRight / 90) * strength * -3;
         } else {
             targetX.value = cursorPosition.y * strength;
             targetY.value = cursorPosition.x * strength;
