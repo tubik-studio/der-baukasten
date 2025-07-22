@@ -18,7 +18,7 @@ export function updateRotationEffect(strength, cursorPosition, deviceOrientation
         const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
 
         const leftToRight = clipValue(deviceOrientation?.gamma?.value, -90, 90) || 0;
-        const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) || 0;
+        const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) + 45 || 0;
 
         if (leftToRight !== 0 || frontToBack !== 0) {
             targetX.value = (frontToBack / 90) * strength * -3;
