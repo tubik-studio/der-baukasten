@@ -5,7 +5,7 @@ export default function zoom() {
     const aspect = canvas.clientWidth / canvas.clientHeight;
 
     // Zoom
-    const zoomLevel = 1;
+    const zoomLevel = Math.min(1, Math.max(1 + (aspect - 1.8) * 0.4, 0.75));
 
     if (globals.camera) {
         globals.camera.zoom = zoomLevel;
