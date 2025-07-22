@@ -1,5 +1,12 @@
 <template>
-    <header class="the-header container" :class="{ 'is-collapsed': scrollY > 0, 'is-dark': mainStore.isHeaderDark }">
+    <header
+        class="the-header container"
+        :class="{
+            'is-collapsed': scrollY > 0,
+            'is-collapsed-mobile': scrollY > windowHeight,
+            'is-dark': mainStore.isHeaderDark
+        }"
+    >
         <div class="the-header__content">
             <!-- Description -->
             <p ref="desc" class="the-header__desc">A subtle concept for game design or interior mood</p>
@@ -37,7 +44,7 @@
 
     // Window
     const { y: scrollY } = useWindowScroll();
-    const { width: windowWidth } = useWindowSize();
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
 
     // Animation
     useAnimation({
@@ -100,8 +107,6 @@
             @include respond-pad(padding);
             background-color: var(--color-primary);
             opacity: 0;
-            //
-            transition: opacity $tr-time;
         }
 
         &__content {
@@ -139,14 +144,17 @@
     .the-header.is-collapsed {
         z-index: 1001;
 
+        .the-header__logo {
+            pointer-events: auto;
+        }
+    }
+
+    // Collapsed mobile state
+    .the-header.is-collapsed-mobile {
         @include respond-mobile(xl) {
             &:after {
                 opacity: 1;
             }
-        }
-
-        .the-header__logo {
-            pointer-events: auto;
         }
     }
 
