@@ -22,6 +22,11 @@ export default {
     animationsArray: [],
     // Cursor
     cursorPosition: null,
+    // Device Orientation
+    deviceOrientation: {
+        x: 0, // gamma
+        y: 0 // beta
+    },
     // Magnetic repulsion effect
     magneticRepulsionEnabled: true
 };

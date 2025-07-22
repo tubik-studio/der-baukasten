@@ -4,10 +4,6 @@ function lerp(start, end, alpha) {
     return start * (1 - alpha) + end * alpha;
 }
 
-function clipValue(value, min, max) {
-    return Math.max(Math.min(value, max), min) || 0;
-}
-
 const targetX = ref(0);
 const targetY = ref(0);
 
@@ -17,15 +13,12 @@ export function updateRotationEffect(strength, cursorPosition, deviceOrientation
         const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster");
         const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
 
-        const leftToRight = clipValue(deviceOrientation?.gamma?.value, -90, 90) || 0;
-        const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) || 0;
-
-        if (leftToRight !== 0 || frontToBack !== 0) {
-            targetX.value = ((frontToBack - 45) / 90) * strength * -2;
-            targetY.value = (leftToRight / 90) * strength * -2;
+        if (deviceOrientation.x !== 0 || deviceOrientation.y !== 0) {
+            targetX.value = ((deviceOrientation.x - 45) / 90) * strength * -2;
+            targetY.value = (deviceOrientation.y / 90) * strength * -2;
         } else {
-            targetX.value = cursorPosition.y * strength;
-            targetY.value = cursorPosition.x * strength;
+            targetX.value = cursorPosition.x * strength;
+            targetY.value = cursorPosition.y * strength;
         }
 
         if (main) {

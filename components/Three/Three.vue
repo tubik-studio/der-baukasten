@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-    import { useWindowSize, useDeviceOrientation } from "@vueuse/core";
+    import { useWindowSize } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
 
     // Three.js
@@ -23,6 +23,7 @@
     import loadModel from "./modules/model";
     import zoom from "./modules/zoom";
     import { setCursorListener } from "./modules/cursorPosition";
+    import { setDeviceOrientationListener } from "./modules/deviceOrientation";
     import { initGui, initStats, startStats, endStats } from "./modules/gui";
     import { updateAnimationMixer } from "./modules/animations.js";
     import { updateMagneticRepulsion } from "./modules/magneticRepulsion";
@@ -31,9 +32,6 @@
     // Globals
     const mainStore = useMainStore();
     const nuxtApp = useNuxtApp();
-
-    // Device orientation
-    const deviceOrientation = useDeviceOrientation();
 
     // Route
     const route = useRoute();
@@ -69,6 +67,9 @@
         // ===== 🖱️ CURSOR POSITION =====
         setCursorListener();
 
+        // ===== 📱 DEVICE ORIENTATION =====
+        setDeviceOrientationListener();
+
         // ===== 📊 STATS ====
         initStats(route);
 
@@ -98,7 +99,7 @@
         updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
 
         // Update rotation effect
-        updateRotationEffect(mainStore.threeRotationStrength, globals.cursorPosition, deviceOrientation);
+        updateRotationEffect(mainStore.threeRotationStrength, globals.cursorPosition, globals.deviceOrientation);
 
         // Update main components
         globals.cameraControls.update();
