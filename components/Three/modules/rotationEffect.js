@@ -17,14 +17,12 @@ export function updateRotationEffect(strength, cursorPosition, deviceOrientation
         const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster");
         const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
 
-        console.log(targetX.value, targetY.value);
-
-        const leftToRight = clipValue(deviceOrientation?.alpha?.value, -90, 90) || 0;
+        const leftToRight = clipValue(deviceOrientation?.gamma?.value, -90, 90) || 0;
         const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) || 0;
 
         if (leftToRight !== 0 || frontToBack !== 0) {
-            targetX.value = (frontToBack / 90) * strength;
-            targetY.value = (leftToRight / 90) * strength;
+            targetX.value = (frontToBack / 90) * strength * 2;
+            targetY.value = (leftToRight / 90) * strength * 2;
         } else {
             targetX.value = cursorPosition.y * strength;
             targetY.value = cursorPosition.x * strength;
