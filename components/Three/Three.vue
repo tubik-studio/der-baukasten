@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-    import { useWindowSize } from "@vueuse/core";
+    import { useWindowSize, useDeviceOrientation } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
 
     // Three.js
@@ -31,6 +31,9 @@
     // Globals
     const mainStore = useMainStore();
     const nuxtApp = useNuxtApp();
+
+    // Device orientation
+    const deviceOrientation = useDeviceOrientation();
 
     // Route
     const route = useRoute();
@@ -95,7 +98,7 @@
         updateMagneticRepulsion(mainStore.threeMagneticRepulsionStrength);
 
         // Update rotation effect
-        updateRotationEffect(mainStore.threeRotationStrength);
+        updateRotationEffect(mainStore.threeRotationStrength, globals.cursorPosition, deviceOrientation);
 
         // Update main components
         globals.cameraControls.update();

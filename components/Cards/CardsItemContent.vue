@@ -72,7 +72,7 @@
         }
 
         &__title {
-            font-size: px-to-rem(180);
+            font-size: clamp(8rem, 6.917rem + 3.611vw, 11.25rem);
             font-weight: 500;
             letter-spacing: -0.07em;
             line-height: 1;

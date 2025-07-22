@@ -4,14 +4,27 @@ function lerp(start, end, alpha) {
     return start * (1 - alpha) + end * alpha;
 }
 
-export function updateRotationEffect(strength, lerpFactor = 0.025) {
-    if (globals.cursorPosition && globals.cameraGroup && globals.currentLoadedModel) {
+export function updateRotationEffect(strength, cursorPosition, deviceOrientation, lerpFactor = 0.025) {
+    if (globals.cameraGroup && globals.currentLoadedModel) {
         const main = globals?.currentLoadedModel?.getObjectByName("Main_Bricks");
         const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster");
         const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
 
-        const targetX = globals.cursorPosition.y * strength;
-        const targetY = globals.cursorPosition.x * strength;
+        const targetX = ref(0);
+        const targetY = ref(0);
+
+        if (deviceOrientation) {
+            const leftToRight = deviceOrientation.gamma.value;
+            const frontToBack = deviceOrientation.beta.value;
+
+            if (leftToRight !== 0 && frontToBack !== 0) {
+                targetX.value = leftToRight * strength;
+                targetY.value = frontToBack * strength;
+            }
+        } else {
+            targetX.value = cursorPosition.y * strength;
+            targetY.value = cursorPosition.x * strength;
+        }
 
         if (main) {
             main.rotation.x = lerp(main.rotation.x, targetX, lerpFactor);
