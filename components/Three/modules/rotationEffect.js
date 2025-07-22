@@ -4,41 +4,45 @@ function lerp(start, end, alpha) {
     return start * (1 - alpha) + end * alpha;
 }
 
+function clipValue(value, min, max) {
+    return Math.max(Math.min(value, max), min) || 0;
+}
+
+const targetX = ref(0);
+const targetY = ref(0);
+
 export function updateRotationEffect(strength, cursorPosition, deviceOrientation, lerpFactor = 0.025) {
     if (globals.cameraGroup && globals.currentLoadedModel) {
         const main = globals?.currentLoadedModel?.getObjectByName("Main_Bricks");
         const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster");
         const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
 
-        const targetX = ref(0);
-        const targetY = ref(0);
+        console.log(targetX.value, targetY.value);
 
-        if (deviceOrientation) {
-            const leftToRight = deviceOrientation.gamma.value;
-            const frontToBack = deviceOrientation.beta.value;
+        const leftToRight = clipValue(deviceOrientation?.alpha?.value, -90, 90) || 0;
+        const frontToBack = clipValue(deviceOrientation?.beta?.value, -90, 90) || 0;
 
-            if (leftToRight !== 0 && frontToBack !== 0) {
-                targetX.value = leftToRight * strength;
-                targetY.value = frontToBack * strength;
-            }
+        if (leftToRight !== 0 || frontToBack !== 0) {
+            targetX.value = (frontToBack / 90) * strength;
+            targetY.value = (leftToRight / 90) * strength;
         } else {
             targetX.value = cursorPosition.y * strength;
             targetY.value = cursorPosition.x * strength;
         }
 
         if (main) {
-            main.rotation.x = lerp(main.rotation.x, targetX, lerpFactor);
-            main.rotation.y = lerp(main.rotation.y, targetY, lerpFactor);
+            main.rotation.x = lerp(main.rotation.x, targetX.value, lerpFactor);
+            main.rotation.y = lerp(main.rotation.y, targetY.value, lerpFactor);
         }
 
         if (rooster) {
-            rooster.rotation.x = lerp(rooster.rotation.x, targetX, lerpFactor);
-            rooster.rotation.y = lerp(rooster.rotation.y, targetY, lerpFactor);
+            rooster.rotation.x = lerp(rooster.rotation.x, targetX.value, lerpFactor);
+            rooster.rotation.y = lerp(rooster.rotation.y, targetY.value, lerpFactor);
         }
 
         if (storky) {
-            storky.rotation.x = lerp(storky.rotation.x, targetX, lerpFactor);
-            storky.rotation.y = lerp(storky.rotation.y, targetY, lerpFactor);
+            storky.rotation.x = lerp(storky.rotation.x, targetX.value, lerpFactor);
+            storky.rotation.y = lerp(storky.rotation.y, targetY.value, lerpFactor);
         }
     }
 }
