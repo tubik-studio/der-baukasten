@@ -6,7 +6,7 @@ export const useMainStore = defineStore("main", {
         canvasPositionX: 0,
         canvasPositionY: 0,
         isHeaderDark: false,
-        threeRotationStrength: 0.2,
+        threeRotationStrength: 0.02,
         threeMagneticRepulsionStrength: 0.1
     }),
     getters: {

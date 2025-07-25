@@ -10,15 +10,15 @@ const targetY = ref(0);
 export function updateRotationEffect(strength, cursorPosition, deviceOrientation, lerpFactor = 0.025) {
     if (globals.cameraGroup && globals.currentLoadedModel) {
         const main = globals?.currentLoadedModel?.getObjectByName("Main_Bricks");
-        const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster");
-        const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky");
+        const rooster = globals?.currentLoadedModel?.getObjectByName("Mega_Rooster_Rotation");
+        const storky = globals?.currentLoadedModel?.getObjectByName("Mega_Storky_Rotation");
 
         if (deviceOrientation.x !== 0 || deviceOrientation.y !== 0) {
             targetX.value = ((deviceOrientation.x - 45) / 90) * strength * -2;
             targetY.value = (deviceOrientation.y / 90) * strength * -2;
         } else {
-            targetX.value = cursorPosition.x * strength;
-            targetY.value = cursorPosition.y * strength;
+            targetX.value = cursorPosition.y * strength;
+            targetY.value = cursorPosition.x * strength;
         }
 
         if (main) {
