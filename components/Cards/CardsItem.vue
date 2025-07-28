@@ -8,6 +8,7 @@
                     :title="title"
                     :subtitle="subtitle"
                     :desc="desc"
+                    :download-file-name="downloadFileName"
                 />
             </CardsItemHover>
         </CardsItemScroll>
@@ -52,6 +53,10 @@
         theme: {
             type: String,
             default: "light"
+        },
+        downloadFileName: {
+            type: String,
+            required: true
         }
     });
 

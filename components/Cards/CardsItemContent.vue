@@ -18,12 +18,12 @@
             <div class="cards-item-content__separator"></div>
 
             <!-- Button -->
-            <button class="cards-item-content__button">
+            <a class="cards-item-content__button" :href="`/download/${downloadFileName}.obj`" download>
                 <span>
                     <Icon name="ri:download-line" />
                     Download 3D Model
                 </span>
-            </button>
+            </a>
         </div>
     </div>
 </template>
@@ -41,6 +41,10 @@
         color: {
             type: String,
             default: "#f0f0f0"
+        },
+        downloadFileName: {
+            type: String,
+            required: true
         }
     });
 </script>

@@ -11,6 +11,7 @@
                 :subtitle="item?.subtitle"
                 :desc="item?.desc"
                 :color="item?.color?.color"
+                :download-file-name="item?.download_file_name"
                 :theme="item?.theme"
                 :active-card-id="activeCardId"
                 @update-active-item-id="updateActiveItemId"
