@@ -113,7 +113,7 @@
                     0
                 )
                 .from(
-                    ".the-header__logo .char",
+                    ".section-hero__title .char",
                     {
                         yPercent: 100,
                         duration: 1.5,

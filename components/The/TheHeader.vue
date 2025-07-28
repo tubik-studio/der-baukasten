@@ -2,7 +2,7 @@
     <header
         class="the-header container"
         :class="{
-            'is-collapsed': scrollY > 0,
+            'is-collapsed': scrollY > 100,
             'is-collapsed-mobile': scrollY > windowHeight,
             'is-dark': mainStore.isHeaderDark
         }"
@@ -13,7 +13,7 @@
 
             <!-- Logo-->
             <a ref="logo" class="the-header__logo" href="#hero">
-                <TheLogo v-fitty />
+                <TheLogo />
             </a>
 
             <!-- Contacts button -->
@@ -38,46 +38,9 @@
     // Globals
     const mainStore = useMainStore();
 
-    // Refs
-    const $refLogo = useTemplateRef("logo");
-    const $refDesc = useTemplateRef("desc");
-
     // Window
     const { y: scrollY } = useWindowScroll();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
-
-    // Animation
-    useAnimation({
-        onEnter: ({ $gsap, transitions }) => {
-            const logoScrub = $gsap.timeline({
-                scrollTrigger: {
-                    start: 0,
-                    end: "+=100%",
-                    scrub: true
-                },
-                defaults: {
-                    ease: "none"
-                }
-            });
-
-            logoScrub.to(
-                $refLogo.value,
-                {
-                    scale: () => 0.075 + Math.max(0, 1440 - windowWidth.value) / 5500,
-                    y: "1%"
-                },
-                0
-            );
-
-            logoScrub.to(
-                $refDesc.value,
-                {
-                    y: "-20vh"
-                },
-                0
-            );
-        }
-    });
 </script>
 
 <style lang="scss" scoped>
@@ -122,6 +85,10 @@
             font-size: px-to-rem(18);
             font-weight: 500;
             text-wrap: balance;
+            //
+            transition:
+                transform 0.6s $tr-atf,
+                opacity 0.6s;
         }
 
         &__logo {
@@ -129,14 +96,14 @@
             position: absolute;
             top: 0;
             left: 0;
+            margin-top: 0.33em;
             transform-origin: left top;
-            width: 100%;
-            transform: translateY(calc(#{$header-padding} + 3rem));
-
-            :deep(.the-logo .line-mask) {
-                margin-left: -0.05em;
-                padding-right: 0.05em;
-            }
+            transform: translateY(100%);
+            opacity: 0;
+            //
+            transition:
+                transform 0.6s $tr-atf,
+                opacity 0.6s;
         }
     }
 
@@ -144,8 +111,14 @@
     .the-header.is-collapsed {
         z-index: 1001;
 
+        .the-header__desc {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
         .the-header__logo {
-            pointer-events: auto;
+            transform: translateY(0);
+            opacity: 1;
         }
     }
 
