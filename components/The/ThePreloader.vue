@@ -77,7 +77,6 @@
                     $refBg.value,
                     {
                         opacity: 0,
-                        y: -50,
                         duration: 1.2
                     },
                     0

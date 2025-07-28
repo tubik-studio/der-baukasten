@@ -34,8 +34,7 @@
                 start: 100,
                 onEnter: () => {
                     $gsap.to(".section-hero__title .char", {
-                        y: "-100%",
-                        //alpha: 0,
+                        yPercent: 120,
                         duration: 0.6,
                         stagger: 0.025,
                         ease: "power2.out"
@@ -43,10 +42,9 @@
                 },
                 onLeaveBack: () => {
                     $gsap.to(".section-hero__title .char", {
-                        y: 0,
-                        //alpha: 1,
+                        yPercent: 0,
                         duration: 0.6,
-                        stagger: 0.025,
+                        stagger: -0.025,
                         ease: "power2.out"
                     });
                 }
@@ -69,6 +67,8 @@
         }
 
         &__title {
+            margin-left: 0.04em;
+
             :deep(.line-mask) {
                 margin-left: -0.05em;
                 padding-right: 0.05em;
