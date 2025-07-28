@@ -1,5 +1,7 @@
 <template>
-    <section class="section-hero" :id="blok.id"></section>
+    <section class="section-hero" :id="blok.id">
+        <!-- The hero title is located at the header component -->
+    </section>
 </template>
 
 <script setup>

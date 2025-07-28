@@ -131,7 +131,7 @@
             left: 0;
             transform-origin: left top;
             width: 100%;
-            transform: translateY(calc(100vh - 100% - #{$header-padding} - 5rem));
+            transform: translateY(calc(#{$header-padding} + 3rem));
 
             :deep(.the-logo .line-mask) {
                 margin-left: -0.05em;
