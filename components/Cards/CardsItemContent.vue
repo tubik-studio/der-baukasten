@@ -1,7 +1,7 @@
 <template>
     <div class="cards-item-content">
         <!-- Phonetic Image -->
-        <img class="cards-item-content__phonetic" :src="phonetic?.filename" :alt="phonetic?.alt" />
+        <CardsItemPhonetic class="cards-item-content__phonetic" :image="phonetic" :sound-name="downloadFileName" />
 
         <div class="cards-item-content__inner">
             <!-- Title -->
@@ -71,8 +71,6 @@
             top: 0;
             left: 0;
             display: block;
-            width: clamp(4.75rem, 3.393rem + 2.121vw, 5.938rem);
-            transform: translate(1%, -5%);
         }
 
         &__title {

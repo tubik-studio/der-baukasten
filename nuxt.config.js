@@ -18,7 +18,8 @@ export default defineNuxtConfig({
         ],
         ["@storyblok/nuxt", { accessToken: process.env.STORYBLOK_ACCESS_TOKEN, cacheProvider: "memory" }],
         "@nuxt/image",
-        "@nuxt/icon"
+        "@nuxt/icon",
+        "@vueuse/sound/nuxt"
     ],
     buildModules: ["@vueuse/nuxt"],
     css: ["@/assets/css/base/_index.scss"],
@@ -49,6 +50,11 @@ export default defineNuxtConfig({
                 dir: "./assets/icons"
             }
         ]
+    },
+    sound: {
+        sounds: {
+            scan: true
+        }
     },
     devServer: {
         https: {

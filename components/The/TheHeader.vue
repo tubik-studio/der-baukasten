@@ -53,6 +53,7 @@
         width: 100%;
         padding-top: $header-padding;
         padding-bottom: $header-padding;
+        pointer-events: none;
 
         @include respond-mobile(s) {
             padding-top: $header-padding * 0.66;
@@ -78,6 +79,7 @@
             align-items: flex-start;
             justify-content: space-between;
             width: 100%;
+            pointer-events: none;
         }
 
         &__desc {
@@ -104,6 +106,12 @@
             transition:
                 transform 0.6s $tr-atf,
                 opacity 0.6s;
+        }
+
+        &__desc,
+        &__logo,
+        :deep(.buttons-main) {
+            pointer-events: initial;
         }
     }
 

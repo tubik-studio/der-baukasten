@@ -133,6 +133,10 @@
                 opacity: 0;
             }
 
+            .cards-item-phonetic__button {
+                display: none;
+            }
+
             &:hover {
                 .cards-item-hover {
                     transform: translateY(-$header-padding * 2.5);

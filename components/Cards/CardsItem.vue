@@ -80,10 +80,14 @@
         width: 100%;
 
         &.light {
+            --primary-color: var(--color-light);
+            --contrast-color: var(--color-dark);
             color: var(--color-light);
         }
 
         &.dark {
+            --primary-color: var(--color-dark);
+            --contrast-color: var(--color-light);
             color: var(--color-dark);
         }
     }
