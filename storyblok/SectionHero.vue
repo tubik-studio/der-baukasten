@@ -35,7 +35,7 @@
                 onEnter: () => {
                     $gsap.to(".section-hero__title .char", {
                         y: "-100%",
-                        alpha: 0,
+                        //alpha: 0,
                         duration: 0.6,
                         stagger: 0.025,
                         ease: "power2.out"
@@ -44,7 +44,7 @@
                 onLeaveBack: () => {
                     $gsap.to(".section-hero__title .char", {
                         y: 0,
-                        alpha: 1,
+                        //alpha: 1,
                         duration: 0.6,
                         stagger: 0.025,
                         ease: "power2.out"
