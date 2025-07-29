@@ -1,37 +1,27 @@
 <template>
-    <section class="section-hero container" :id="blok.id">
-        <div class="section-hero__inner">
-            <TheLogo class="section-hero__title" v-fitty />
+    <section class="section-hero" :id="blok.id">
+        <div class="section-hero__title container">
+            <div class="section-hero__title__inner">
+                <TheLogo class="" v-fitty />
+            </div>
         </div>
     </section>
 </template>
 
 <script setup>
-    import { useWindowScroll, useWindowSize } from "@vueuse/core";
-    import { useMainStore } from "~/stores/mainStore";
-
     // Props
     const props = defineProps({
         blok: Object
     });
 
-    // Window
-    const { y: scrollY } = useWindowScroll();
-    const { width: windowWidth, height: windowHeight } = useWindowSize();
-
     // Animation
     useAnimation({
         onEnter: ({ $gsap, $scrollTrigger, transitions }) => {
-            const pin = $scrollTrigger.create({
-                trigger: ".section-hero__title",
-                start: 0,
-                end: 100000,
-                pin: true,
-                scrub: true
-            });
-
             const titleTrigger = $scrollTrigger.create({
+                trigger: ".section-hero__title",
                 start: 100,
+                end: 999999,
+                toggleClass: "is-hidden",
                 onEnter: () => {
                     $gsap.to(".section-hero__title .char", {
                         yPercent: 120,
@@ -49,6 +39,8 @@
                     });
                 }
             });
+
+            transitions.push(titleTrigger);
         }
     });
 </script>
@@ -57,17 +49,22 @@
     .section-hero {
         height: 100vh;
 
-        &__inner {
-            box-sizing: border-box;
-            display: flex;
-            align-items: flex-end;
-            width: 100%;
-            height: 100%;
-            padding-bottom: 5rem;
-        }
-
         &__title {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            padding-bottom: 5rem;
             margin-left: 0.04em;
+
+            &.is-hidden {
+                pointer-events: none;
+            }
+
+            &__inner {
+                width: 100%;
+            }
 
             :deep(.line-mask) {
                 margin-left: -0.05em;
