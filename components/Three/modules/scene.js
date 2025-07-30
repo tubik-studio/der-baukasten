@@ -1,5 +1,5 @@
 // Three.js
-import { WebGLRenderer, Scene, Color, PCFSoftShadowMap, NeutralToneMapping } from "three";
+import { WebGLRenderer, Scene, Color, PCFSoftShadowMap, NeutralToneMapping, SRGBColorSpace } from "three";
 
 // Helpers
 import globals from "./globals";
@@ -11,10 +11,11 @@ export default function scene(canvas) {
     // Renderer
     globals.renderer = new WebGLRenderer({
         canvas: globals.canvas,
-        antialias: true,
+        //antialias: true,
         alpha: true
         //powerPreference: "high-performance"
     });
+    globals.renderer.outputColorSpace = SRGBColorSpace;
     globals.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // Shadows
