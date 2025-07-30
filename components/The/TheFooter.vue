@@ -101,9 +101,10 @@
 
     // Watch progress
     watch(footerViewProgress, (progress) => {
-        console.log(progress);
         mainStore.updateThreeAnimationFrame(900 + 200 * progress);
-        mainStore.updateCanvasPositionY(0 - 0.15 * progress);
+        mainStore.updateCanvasPositionY(
+            window.innerHeight < window.innerWidth ? 0 - 0.15 * progress : -0.075 * progress
+        );
 
         mainStore.updateCanvasPositionX(window.innerWidth > 1024 ? -0.251 + 0.251 * progress : 0);
     });

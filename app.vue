@@ -26,7 +26,7 @@
     // Imports
     import { onKeyStroke } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
-    import { Events, TRANSITION_ENTER, TRANSITION_ENTER_DONE, PRELOADER_DONE } from "assets/js/Events";
+    import { Events, PRELOADER_DONE } from "assets/js/Events";
 
     // Nuxt
     const nuxtApp = useNuxtApp();

@@ -18,6 +18,7 @@ export default {
     // Animations
     targetPlace: null,
     cameraPlace: null,
+    // Animation Mixer
     animationMixers: [],
     animationsArray: [],
     // Cursor

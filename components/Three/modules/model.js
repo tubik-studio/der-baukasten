@@ -15,9 +15,13 @@ export default function model() {
         globals.currentLoadedModel = null;
     }
 
+    // Define which model to load based on the device type
+    const isMobile = window.innerWidth < window.innerHeight;
+    const modelToLoad = isMobile ? "three/model_mobile.glb" : "three/model_desktop.glb";
+
     // Load the new GLTF model
     nuxtApp.$gltfLoader.load(
-        "three/model.glb",
+        modelToLoad,
         (gltf) => {
             globals.currentLoadedModel = gltf.scene;
 
