@@ -1,75 +1,63 @@
-import { Vector2 } from "three";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
+import { Vector2, ShaderMaterial } from "three";
+import { EffectComposer, RenderPass, EffectPass, ShaderPass, SMAAEffect, SMAAPreset } from "postprocessing";
 
 // Globals
 import globals from "./globals";
 
-// Shaders
+// Shaders - Make sure these files have the correct code from above!
 import vertexShader from "../shaders/vertex.glsl";
 import fragmentShader from "../shaders/fragment.glsl";
 
-// Activity tracking
-let activity = 0;
-let lastMoveTime = performance.now();
+// --- ADD THIS FOR DEBUGGING ---
+console.log("Vertex Shader Loaded:", vertexShader);
+console.log("Fragment Shader Loaded:", fragmentShader);
 
-// Glitch effect pass
-const glitchPass = new ShaderPass({
+// Create the ShaderMaterial in a constant. This makes it easy to access later.
+const glitchMaterial = new ShaderMaterial({
     uniforms: {
         tDiffuse: { value: null },
-        uMouse: { value: new Vector2() },
-        uMouseVelocity: { value: new Vector2() },
-        uActivity: { value: 0.0 },
-        uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
-        uBlockSize: { value: 28.0 },
-        uRadius: { value: 150.0 },
-        uTime: { value: 0.0 }
+        uMouseVelocity: { value: new Vector2(0, 0) },
+        uBlockSize: { value: 50.0 }, // The number of horizontal blocks
+        uIntensity: { value: 0.8 } // Master intensity for the effect
     },
     vertexShader: vertexShader,
     fragmentShader: fragmentShader
 });
 
+// Pass the material instance to the ShaderPass.
+const glitchPass = new ShaderPass(glitchMaterial);
+
 export default function initComposer() {
     globals.composer = new EffectComposer(globals.renderer);
-    // globals.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    // globals.composer.setSize(window.innerWidth, window.innerHeight);
 
-    const renderPass = new RenderPass(globals.scene, globals.camera);
-    globals.composer.addPass(renderPass);
-
+    globals.composer.addPass(new RenderPass(globals.scene, globals.camera));
     globals.composer.addPass(glitchPass);
-
-    //
-    const outputPass = new OutputPass();
-    globals.composer.addPass(outputPass);
-
-    //globals.composer.addPass(new ShaderPass(FXAAShader));
-
-    // Update uniforms on mouse move
-    let lastMouse = new Vector2();
-    let velocity = new Vector2();
-
-    window.addEventListener("mousemove", (e) => {
-        const now = performance.now();
-        const newMouse = new Vector2(e.clientX, window.innerHeight - e.clientY);
-
-        velocity.copy(newMouse).sub(lastMouse).multiplyScalar(0.1);
-        lastMouse.copy(newMouse);
-
-        glitchPass.uniforms.uMouse.value.copy(newMouse);
-        glitchPass.uniforms.uMouseVelocity.value.copy(velocity);
-
-        activity = 1.0; // full intensity on move
-        lastMoveTime = now;
-    });
+    globals.composer.addPass(
+        new EffectPass(
+            globals.camera,
+            new SMAAEffect({
+                preset: SMAAPreset.ULTRA
+            })
+        )
+    );
 }
 
-export function updateGlitch(delta) {
-    // Linear decay
-    activity = Math.max(0, activity - delta * 1.5);
-    glitchPass.uniforms.uActivity.value = activity;
-    glitchPass.uniforms.uTime.value += 0.05;
+// --- Mouse Velocity Logic ---
+const mouseVelocity = new Vector2();
+window.addEventListener("mousemove", (event) => {
+    mouseVelocity.x += event.movementX * 0.01;
+});
+
+// --- Update Function ---
+export function updateGlitch() {
+    mouseVelocity.multiplyScalar(0.93);
+
+    if (Math.abs(mouseVelocity.x) < 0.0001) {
+        mouseVelocity.x = 0;
+    }
+
+    // **CORRECTED UPDATE**
+    // Update the uniform on the material instance directly.
+    // This is safer than accessing `glitchPass.fullscreenMaterial`.
+    glitchMaterial.uniforms.uMouseVelocity.value.x = mouseVelocity.x;
 }

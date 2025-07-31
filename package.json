@@ -38,6 +38,7 @@
         "lottie-web": "^5.13.0",
         "nodemailer": "^7.0.3",
         "pinia": "^3.0.3",
+        "postprocessing": "^6.37.6",
         "stats.js": "^0.17.0",
         "three": "^0.178.0",
         "vite-plugin-glsl": "^1.5.1"

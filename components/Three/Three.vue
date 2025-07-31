@@ -112,7 +112,7 @@
         //globals.renderer.render(globals.scene, globals.camera);
 
         // Update the glitch effect
-        updateGlitch(delta);
+        updateGlitch();
 
         // ===== 🐞 STATS ====
         endStats();
