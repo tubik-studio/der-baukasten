@@ -87,6 +87,7 @@
         height: 100%;
         padding: $header-padding $grid-gap;
         background-color: v-bind(color);
+        filter: url(#monotoneNoise);
 
         @include respond-mobile(xl) {
             @include respond-pad(padding-inline);
