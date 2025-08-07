@@ -1,9 +1,8 @@
 import { Vector2 } from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { SSAARenderPass } from "three/examples/jsm/postprocessing/SSAARenderPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
 
 // Globals
 import globals from "./globals";
@@ -34,19 +33,17 @@ const glitchPass = new ShaderPass({
 
 export default function initComposer() {
     globals.composer = new EffectComposer(globals.renderer);
-    // globals.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    // globals.composer.setSize(window.innerWidth, window.innerHeight);
 
-    const renderPass = new RenderPass(globals.scene, globals.camera);
+    // SSAA render pass to improve the quality of the scene
+    const renderPass = new SSAARenderPass(globals.scene, globals.camera, 4); // 4 samples
     globals.composer.addPass(renderPass);
 
-    globals.composer.addPass(glitchPass);
+    // Test glitch pass
+    //globals.composer.addPass(glitchPass);
 
-    //
+    // Output pass to correct the colors
     const outputPass = new OutputPass();
     globals.composer.addPass(outputPass);
-
-    //globals.composer.addPass(new ShaderPass(FXAAShader));
 
     // Update uniforms on mouse move
     let lastMouse = new Vector2();
