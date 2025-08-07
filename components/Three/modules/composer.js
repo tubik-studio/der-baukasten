@@ -1,19 +1,31 @@
-import { Vector2, ShaderMaterial, Uniform } from "three";
-import { EffectComposer, RenderPass, EffectPass, ShaderPass, SMAAEffect, SMAAPreset } from "postprocessing";
+import { Vector2 } from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { SSAARenderPass } from "three/examples/jsm/postprocessing/SSAARenderPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 
 // Globals
 import globals from "./globals";
 
-// Shaders - Make sure these files have the correct code from above!
+// Shaders
 import vertexShader from "../shaders/vertex.glsl";
 import fragmentShader from "../shaders/fragment.glsl";
 
-// Create the ShaderMaterial in a constant. This makes it easy to access later.
-const glitchMaterial = new ShaderMaterial({
+// Activity tracking
+let activity = 0;
+let lastMoveTime = performance.now();
+
+// Glitch effect pass
+const glitchPass = new ShaderPass({
     uniforms: {
-        tDiffuse: new Uniform(null), // Will be provided by ShaderPass
-        pixelSize: new Uniform(8.0), // The initial size of the pixels. Adjust as needed.
-        resolution: new Uniform(new Vector2(window.innerWidth, window.innerHeight)) // Initial resolution
+        tDiffuse: { value: null },
+        uMouse: { value: new Vector2() },
+        uMouseVelocity: { value: new Vector2() },
+        uActivity: { value: 0.0 },
+        uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+        uBlockSize: { value: 28.0 },
+        uRadius: { value: 150.0 },
+        uTime: { value: 0.0 }
     },
     vertexShader: vertexShader,
     fragmentShader: fragmentShader
@@ -22,33 +34,39 @@ const glitchMaterial = new ShaderMaterial({
 export default function initComposer() {
     globals.composer = new EffectComposer(globals.renderer);
 
-    globals.composer.addPass(new RenderPass(globals.scene, globals.camera));
-    globals.composer.addPass(new ShaderPass(glitchMaterial), "tDiffuse");
-    globals.composer.addPass(
-        new EffectPass(
-            globals.camera,
-            new SMAAEffect({
-                preset: SMAAPreset.ULTRA
-            })
-        )
-    );
+    // SSAA render pass to improve the quality of the scene
+    const renderPass = new SSAARenderPass(globals.scene, globals.camera, 4); // 4 samples
+    globals.composer.addPass(renderPass);
+
+    // Test glitch pass
+    //globals.composer.addPass(glitchPass);
+
+    // Output pass to correct the colors
+    const outputPass = new OutputPass();
+    globals.composer.addPass(outputPass);
+
+    // Update uniforms on mouse move
+    let lastMouse = new Vector2();
+    let velocity = new Vector2();
+
+    window.addEventListener("mousemove", (e) => {
+        const now = performance.now();
+        const newMouse = new Vector2(e.clientX, window.innerHeight - e.clientY);
+
+        velocity.copy(newMouse).sub(lastMouse).multiplyScalar(0.1);
+        lastMouse.copy(newMouse);
+
+        glitchPass.uniforms.uMouse.value.copy(newMouse);
+        glitchPass.uniforms.uMouseVelocity.value.copy(velocity);
+
+        activity = 1.0; // full intensity on move
+        lastMoveTime = now;
+    });
 }
 
-// --- Mouse Velocity Logic ---
-const mouseVelocity = new Vector2();
-window.addEventListener("mousemove", (event) => {
-    mouseVelocity.x += event.movementX * 0.01;
-});
-
-// --- Update Function ---
-export function updateGlitch() {
-    // mouseVelocity.multiplyScalar(0.93);
-    //
-    // if (Math.abs(mouseVelocity.x) < 0.0001) {
-    //     mouseVelocity.x = 0;
-    // }
-    // **CORRECTED UPDATE**
-    // Update the uniform on the material instance directly.
-    // This is safer than accessing `glitchPass.fullscreenMaterial`.
-    //glitchMaterial.uniforms.uMouseVelocity.value.x = mouseVelocity.x;
+export function updateGlitch(delta) {
+    // Linear decay
+    activity = Math.max(0, activity - delta * 1.5);
+    glitchPass.uniforms.uActivity.value = activity;
+    glitchPass.uniforms.uTime.value += 0.05;
 }
