@@ -119,6 +119,10 @@
 
         .cards-item.is-side-hovered .cards-item-hover {
             transform: translateX(-7rem);
+
+            .cards-item-phonetic__button {
+                opacity: 0;
+            }
         }
 
         // Bottom hover effect (when card is not visible)
