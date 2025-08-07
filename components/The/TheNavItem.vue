@@ -14,12 +14,11 @@
             type: Object,
             required: true
         }
-    })
+    });
 </script>
 
 <style lang="scss" scoped>
     .the-nav__item {
-        cursor: pointer;
         font-size: 1.125rem;
         font-weight: 400;
         line-height: 2rem;

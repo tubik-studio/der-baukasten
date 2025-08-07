@@ -128,8 +128,6 @@
 
         // Bottom hover effect (when card is not visible)
         .cards-item:not(.is-visible) {
-            cursor: pointer;
-
             .cards-item-hover {
                 transform: translateY(-$header-padding);
             }

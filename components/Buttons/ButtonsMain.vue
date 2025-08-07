@@ -53,7 +53,6 @@
     $icon-size: 1.5rem;
 
     .buttons-main {
-        cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;

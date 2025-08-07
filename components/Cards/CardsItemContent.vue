@@ -109,7 +109,6 @@
             color: currentColor;
             border: 1px solid currentColor;
             border-radius: px-to-rem(12);
-            cursor: pointer;
             background: none;
             transition: background-color $tr-time;
 

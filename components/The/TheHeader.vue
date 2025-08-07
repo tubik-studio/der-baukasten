@@ -104,7 +104,6 @@
 
         &__logo {
             pointer-events: none !important;
-            cursor: pointer;
             position: absolute;
             top: 0;
             left: 0;
