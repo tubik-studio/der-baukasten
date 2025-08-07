@@ -1,5 +1,5 @@
 // Three.js
-import { WebGLRenderer, Scene, Color, PCFSoftShadowMap, SRGBColorSpace, NoToneMapping } from "three";
+import { WebGLRenderer, Scene, Color, PCFSoftShadowMap, SRGBColorSpace, NeutralToneMapping } from "three";
 
 // Helpers
 import globals from "./globals";
@@ -11,9 +11,7 @@ export default function scene(canvas) {
     // Renderer
     globals.renderer = new WebGLRenderer({
         canvas: globals.canvas,
-        antialias: false,
-        stencil: false,
-        depth: false,
+        antialias: true,
         alpha: true
     });
     globals.renderer.outputColorSpace = SRGBColorSpace;
@@ -22,7 +20,7 @@ export default function scene(canvas) {
     // Shadows
     globals.renderer.shadowMap.enabled = true;
     globals.renderer.shadowMap.type = PCFSoftShadowMap;
-    globals.renderer.toneMapping = NoToneMapping;
+    globals.renderer.toneMapping = NeutralToneMapping;
 
     // Scene
     globals.scene = new Scene();

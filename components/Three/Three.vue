@@ -17,7 +17,6 @@
     // Modules
     import { resizeRendererToDisplaySize } from "./modules/responsiveness";
     import initScene from "./modules/scene";
-    import initComposer from "./modules/composer";
     import initCamera from "./modules/camera";
     import initLights from "./modules/lights";
     import initControls from "./modules/controls";
@@ -29,7 +28,6 @@
     import { updateAnimationMixer } from "./modules/animations.js";
     import { updateMagneticRepulsion } from "./modules/magneticRepulsion";
     import { updateRotationEffect } from "./modules/rotationEffect";
-    import { updateGlitch } from "./modules/composer";
 
     // Globals
     const mainStore = useMainStore();
@@ -77,9 +75,6 @@
 
         // ===== 🧰 CALLBACK =====
         callback();
-
-        // ===== 🖼️ POST PROCESSING =====
-        initComposer();
     }
 
     function animate() {
@@ -108,11 +103,8 @@
 
         // Update main components
         globals.cameraControls.update();
-        globals.composer?.render();
-        //globals.renderer.render(globals.scene, globals.camera);
-
-        // Update the glitch effect
-        updateGlitch();
+        //globals.composer?.render();
+        globals.renderer.render(globals.scene, globals.camera);
 
         // ===== 🐞 STATS ====
         endStats();
