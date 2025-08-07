@@ -12,9 +12,9 @@
             <p ref="desc" class="the-header__desc">A subtle concept for game design or interior mood</p>
 
             <!-- Logo-->
-            <a ref="logo" class="the-header__logo" href="#hero">
+            <div ref="logo" class="the-header__logo" @click="scrollTop">
                 <TheLogo />
-            </a>
+            </div>
 
             <!-- Contacts button -->
             <ResolversButton :blok="content?.header_button" />
@@ -36,11 +36,20 @@
     });
 
     // Globals
+    const nuxtApp = useNuxtApp();
     const mainStore = useMainStore();
 
     // Window
     const { y: scrollY } = useWindowScroll();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
+
+    // Scroll to top
+    const scrollTop = () => {
+        nuxtApp.$lenis.scrollTo(0, {
+            lerp: 0.1,
+            force: true
+        });
+    };
 </script>
 
 <style lang="scss" scoped>
@@ -94,7 +103,8 @@
         }
 
         &__logo {
-            pointer-events: none;
+            pointer-events: none !important;
+            cursor: pointer;
             position: absolute;
             top: 0;
             left: 0;
@@ -125,6 +135,7 @@
         }
 
         .the-header__logo {
+            pointer-events: initial !important;
             transform: translateY(0);
             opacity: 1;
         }
