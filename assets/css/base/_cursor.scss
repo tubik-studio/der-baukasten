@@ -1,5 +1,11 @@
-* {
-    cursor:
-        url("/images/cursor.png") 1 1,
-        auto;
+body {
+    * {
+        cursor: none !important;
+    }
+
+    .lil-gui {
+        * {
+            cursor: pointer !important;
+        }
+    }
 }
