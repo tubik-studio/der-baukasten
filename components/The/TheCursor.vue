@@ -36,46 +36,48 @@
         y: 0
     };
 
-    onMounted(() => {
-        // Init setters
-        setters.moveX = $gsap.quickSetter($refCursor.value, "x", "px");
-        setters.moveY = $gsap.quickSetter($refCursor.value, "y", "px");
-        setters.alpha = $gsap.quickSetter($refCursor.value, "alpha", "");
+    useAnimation({
+        onEnter: ({ $gsap, transitions }) => {
+            // Init setters
+            setters.moveX = $gsap.quickSetter($refCursor.value, "x", "px");
+            setters.moveY = $gsap.quickSetter($refCursor.value, "y", "px");
+            setters.alpha = $gsap.quickSetter($refCursor.value, "alpha", "");
 
-        // Update store mouse position on mousemove event
-        window.addEventListener("mousemove", (e) => {
-            // Show after first pixel moved
-            store.changeCursorVisibility(true);
+            // Update store mouse position on mousemove event
+            window.addEventListener("mousemove", (e) => {
+                // Show after first pixel moved
+                store.changeCursorVisibility(true);
 
-            // Update cursor position in the store
-            store.updateCursorPosition({
-                x: e.clientX,
-                y: e.clientY
+                // Update cursor position in the store
+                store.updateCursorPosition({
+                    x: e.clientX,
+                    y: e.clientY
+                });
+
+                //
+                setters.moveX(store.position.x);
+                setters.moveY(store.position.y);
             });
 
-            //
-            setters.moveX(store.position.x);
-            setters.moveY(store.position.y);
-        });
+            // Hide cursor when user leaves the window
+            document.addEventListener("mouseleave", (e) => {
+                store.changeCursorVisibility(false);
+            });
 
-        // Hide cursor when user leaves the window
-        document.addEventListener("mouseleave", (e) => {
-            store.changeCursorVisibility(false);
-        });
-
-        // Set ticker to update custom cursor position every frame
-        $gsap.ticker.add(() => {
-            if (store.snapId.length && !store.isLoading) {
-                // const bounding = this.snapElement.getBoundingClientRect();
-                // console.log(bounding);
-                //
-                // this.setterMoveX(bounding.x + bounding.width / 2);
-                // this.setterMoveY(bounding.y + bounding.height / 2);
-            } else {
-                // setters.moveX(store.position.x);
-                // setters.moveY(store.position.y);
-            }
-        });
+            // Set ticker to update custom cursor position every frame
+            $gsap.ticker.add(() => {
+                if (store.snapId.length && !store.isLoading) {
+                    // const bounding = this.snapElement.getBoundingClientRect();
+                    // console.log(bounding);
+                    //
+                    // this.setterMoveX(bounding.x + bounding.width / 2);
+                    // this.setterMoveY(bounding.y + bounding.height / 2);
+                } else {
+                    // setters.moveX(store.position.x);
+                    // setters.moveY(store.position.y);
+                }
+            });
+        }
     });
 
     // Update alpha value
@@ -91,14 +93,14 @@
     $cursor-size: px-to-rem(64);
 
     .the-cursor-wrapper {
-        position: fixed;
-        z-index: 999999;
+        position: absolute;
         top: 0;
         left: 0;
     }
 
     .the-cursor {
-        position: absolute;
+        position: fixed;
+        z-index: 10000;
         left: 0;
         top: 0;
         width: 0;
