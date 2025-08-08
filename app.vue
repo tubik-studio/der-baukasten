@@ -23,9 +23,9 @@
         <!-- Monotone Noise Filter from Figma -->
         <NoiseFilter />
 
-        <client-only>
+        <ClientOnly>
             <TheCursor />
-        </client-only>
+        </ClientOnly>
     </div>
 </template>
 
