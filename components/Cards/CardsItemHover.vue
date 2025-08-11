@@ -88,16 +88,18 @@
         height: 100%;
         padding: $header-padding $grid-gap;
         background-color: v-bind(color);
+        overflow: hidden;
 
         &__filter {
             user-select: none;
             pointer-events: none;
             position: absolute;
             z-index: 5;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            //object-fit: cover;
             mix-blend-mode: multiply;
         }
 
