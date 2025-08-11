@@ -27,7 +27,6 @@
     import { onKeyStroke } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
     import { Events, PRELOADER_DONE } from "assets/js/Events";
-    import NoiseFilter from "~/components/NoiseFilter.vue";
 
     // Nuxt
     const nuxtApp = useNuxtApp();
