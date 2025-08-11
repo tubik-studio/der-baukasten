@@ -19,9 +19,6 @@
 
         <!-- The Preloader -->
         <ThePreloader />
-
-        <!-- Monotone Noise Filter from Figma -->
-        <NoiseFilter />
     </div>
 </template>
 

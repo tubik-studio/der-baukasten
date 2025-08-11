@@ -1,5 +1,6 @@
 <template>
     <div class="cards-item-hover" @click="onClick" @mouseover="sideHover" @mouseleave="sideHide">
+        <img class="cards-item-hover__filter" src="/images/test.png" alt="" />
         <slot></slot>
     </div>
 </template>
@@ -87,7 +88,18 @@
         height: 100%;
         padding: $header-padding $grid-gap;
         background-color: v-bind(color);
-        filter: url(#monotoneNoise);
+
+        &__filter {
+            user-select: none;
+            pointer-events: none;
+            position: absolute;
+            z-index: 5;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+        }
 
         @include respond-mobile(xl) {
             @include respond-pad(padding-inline);
