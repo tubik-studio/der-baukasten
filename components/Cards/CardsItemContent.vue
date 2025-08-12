@@ -10,7 +10,7 @@
             <div class="cards-item-content__separator"></div>
 
             <!-- Sub title -->
-            <h4 class="cards-item-content__subtitle">{{ subtitle }}</h4>
+            <h4 class="cards-item-content__subtitle" v-html="subtitle"></h4>
 
             <!-- Description -->
             <RichText class="cards-item-content__desc" :text="desc" />
