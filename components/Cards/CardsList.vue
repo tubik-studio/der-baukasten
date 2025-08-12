@@ -17,12 +17,15 @@
                 @update-active-item-id="updateActiveItemId"
             />
         </div>
+
+        <CardsMobileNav :list="list" />
     </div>
 </template>
 
 <script setup>
     import { useMainStore } from "~/stores/mainStore";
     import { useWindowSize } from "@vueuse/core";
+    import CardsMobileNav from "~/components/Cards/CardsMobileNav.vue";
 
     // Props
     const props = defineProps({
