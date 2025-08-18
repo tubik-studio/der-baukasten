@@ -26,5 +26,9 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         height: 28px;
+
+        @include respond-desktop(s) {
+            display: none;
+        }
     }
 </style>
