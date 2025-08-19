@@ -35,7 +35,7 @@
 
     // Scroll on click
     const onClick = () => {
-        if (isMobile) return;
+        if (isMobile.value) return;
         nuxtApp.$lenis.scrollTo(windowHeight.value * 2 * (props.id + 1), {
             duration: 4,
             force: true
