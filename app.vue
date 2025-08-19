@@ -19,11 +19,15 @@
 
         <!-- The Preloader -->
         <ThePreloader />
+
+        <!-- Monotone Noise Filter from Figma -->
+        <NoiseFilter />
     </div>
 </template>
 
 <script setup>
     // Imports
+    import { detect } from "detect-browser";
     import { onKeyStroke } from "@vueuse/core";
     import { useMainStore } from "~/stores/mainStore";
     import { Events, PRELOADER_DONE } from "assets/js/Events";
@@ -39,6 +43,9 @@
     const globalStory = useState();
     await useAsyncStoryPage(globalStory, "global", version, []);
 
+    // Browser
+    const browser = detect();
+
     // Favicons
     useFavicons(globalStory);
 
@@ -46,6 +53,9 @@
     useHead({
         bodyAttrs: {
             class: "__body"
+        },
+        htmlAttrs: {
+            class: `browser-${browser?.name}`
         }
     });
 

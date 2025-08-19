@@ -85,9 +85,10 @@
         height: 100%;
         padding: $header-padding $grid-gap;
         background-color: v-bind(color);
-        overflow: hidden;
+        filter: url(#monotoneNoise);
 
         &__filter {
+            display: none;
             user-select: none;
             pointer-events: none;
             position: absolute;
@@ -107,7 +108,7 @@
             content: "";
             position: absolute;
             z-index: -1;
-            left: 100%;
+            left: 99%;
             top: 0;
             bottom: 0;
             width: 50vh;
@@ -160,6 +161,17 @@
                     transform: translateY(-$header-padding * 0.5);
                 }
             }
+        }
+    }
+
+    // Safari
+    .browser-safari {
+        .cards-item-hover {
+            filter: none;
+        }
+
+        .cards-item-hover__filter {
+            display: block;
         }
     }
 </style>
