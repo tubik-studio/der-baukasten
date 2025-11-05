@@ -165,7 +165,8 @@
     }
 
     // Safari
-    .browser-safari {
+    .browser-safari,
+    .browser-ios {
         .cards-item-hover {
             filter: none;
         }
