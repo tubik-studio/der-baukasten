@@ -55,7 +55,7 @@
             class: "__body"
         },
         htmlAttrs: {
-            class: `browser-${browser?.name}`
+            class: `browser-${browser?.name.toLowerCase()} os-${browser?.os.toLowerCase()}`
         }
     });
 
@@ -83,6 +83,10 @@
             Events.dispatchEvent(PRELOADER_DONE);
         };
     }
+
+    onMounted(() => {
+        console.log(browser);
+    });
 </script>
 
 <style lang="scss">

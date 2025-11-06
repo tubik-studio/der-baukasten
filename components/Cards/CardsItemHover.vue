@@ -85,7 +85,12 @@
         height: 100%;
         padding: $header-padding $grid-gap;
         background-color: v-bind(color);
-        filter: url(#monotoneNoise);
+
+        @supports (filter: url(#monotoneNoise)) {
+            filter: url(#monotoneNoise);
+        }
+
+        //filter: url(#monotoneNoise);
 
         &__filter {
             display: none;
@@ -166,8 +171,7 @@
     }
 
     // Safari
-    .browser-safari,
-    .browser-ios {
+    .os-ios {
         .cards-item-hover {
             filter: none;
         }
